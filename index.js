@@ -1,4 +1,4 @@
-// benodigde modules imprteren
+// benodigde modules importeren
 const express = require('express')
 const app = express()
 const mariadb = require("mariadb");
@@ -20,8 +20,8 @@ app.use(express.static(__dirname + '/public'));
 // stelt de endpoint / als route in
 // res.render renderd de template index.ejs en stuurt deze als html naar de client
 // het object word meegenomen in het ejs bestand om de pagina te vullen
-app.get("/", (req, res) => {
-      res.render("index", {text: "hello world"});
+app.get("/kip", (req, res) => {
+      res.render("index", {text: "hello kip"});
 });
 
 // de hooft route naar de root van de server
