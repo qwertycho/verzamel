@@ -1,14 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
+    <!-- link CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <!-- <%- variable %> haalt de data op uit de res.render object -->
-    <!-- als er geen text variable is word "geen tekst" gebruikt -->
-    <%- locals.text || "geen text" %>
+
+    <nav class="menu-container">
+        <!-- burger menu -->
+        <input type="checkbox" aria-label="Toggle menu" />
+        <span></span>
+        <span></span>
+        <span></span>
+
+        <!-- logo -->
+        <a href="#iets" class="menu-logo">
+            <img src="media/pf 3.jpg"/>
+        </a>
+
+        <!-- menu items -->
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="#iets">
+                        iets
+                    </a>
+                </li>
+                <li>
+                    <a href="#iets">
+                        iets
+                    </a>
+                </li>
+                <li>
+                    <a href="#iets">
+                        iets
+                    </a>
+                </li>
+                <li>
+                    <a href="#iets">
+                        iets
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="#iets">
+                        Sign-up
+                    </a>
+                </li>
+                <li>
+                    <a href="#iets">
+                        Login
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
 </body>
+
 </html>
