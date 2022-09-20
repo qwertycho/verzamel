@@ -22,6 +22,7 @@ async function Database(username) {
     conn = await pool.getConnection();
     console.log("Connecting to database");
     const user = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [username]);
+    res.send("hallo")
     console.log("db connected");
     console.log("user: " + user);
   } catch (err) {
@@ -87,16 +88,9 @@ router.post("/login", (req, res) => {
 //     }
 // });
 
-router.get("/login", (req, res) => {
-  async function test() {
-    let user = "qwertycho";
-    return await Database(user);
-  }
+router.get("/login", (req, res) => {}
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
-  test().then((result) => {
-    console.log(result);
-    res.send("geladen");
-  });
+  Database("qwertycho")
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
 });
 
