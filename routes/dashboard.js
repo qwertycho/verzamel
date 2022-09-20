@@ -9,29 +9,24 @@ const mariadb = require("mariadb");
 router.use(cookieParser());
 
 
-// db shit
-const pool = mariadb.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    connectionLimit: 5
-});
-async function connect(username) {
+async function main(username) {
     let conn;
+ 
     try {
-        conn = await pool.getConnection();
-        const rows = await conn.query(`SELECT * FROM gebruikers WHERE username = ${username}`);
-        console.log("xxxxxxxxxxxxxxxxxxxxxx");
-        console.log(rows); 
-        console.log("xxxxxxxxxxxxxxxxxxxxxx");
-        return rows;
+       conn = await mariadb.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+       });
 
+       var row = await conn.query("SELECT * FROM `test`.`users` WHERE `username` = ?", [username]);
+
+         return row;
     } catch (err) {
-        throw err;
-        } finally {
-        if (conn) return conn.end();
+         throw err;
+    } finally {
+            if (conn) return conn.end();
     }
-}
 
 // dit is de route voor login
 // doordat dit bestand pas word aangesproken als de gebruiker naar /dashboard gaat is /login dus /dashboard/login
@@ -41,7 +36,7 @@ router.post("/login", (req, res) => {
     console.log(`post/login req.cookies zijn: ${req.cookies.username}`);
     let username = req.body.username;
     let password = req.body.password;
-    let DbResonse = connect(username);
+    let DbResonse = main(username);
   if (username != undefined) {
     if (DbResonse.username == username && DbResonse.password == password) {
       // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
@@ -76,7 +71,7 @@ router.get("/login", (req, res) => {
     console.log(`/login req.cookies zijn: ${req.cookies.username}`);
     console.log("xxxxxxxxxxxxxxxxxxxxxx");
     if (req.cookies.username != undefined) {
-        let DbResonse = connect(req.cookies.user);
+        let DbResonse = main(req.cookies.user);
         if(
             DbResonse.username == req.cookies.user &&
             DbResonse.password == req.cookies.auth
@@ -100,7 +95,7 @@ router.get("/login", (req, res) => {
 router.get("/", (req, res) => {
   console.log(`/ req.cookies zijn: ${req.cookies.username}`);
     if (req.cookies.username != undefined) {
-        let DbResonse = login(req.cookies.user);
+        let DbResonse = main(req.cookies.user);
         if(
             DbResonse.username == req.cookies.user &&
             DbResonse.password == req.cookies.auth
@@ -121,7 +116,7 @@ router.get("/", (req, res) => {
 
     // async function login(username) {
     //    return new Promise((resolve, reject) => {
-    //         connect(username).then((result) => {
+    //         main(username).then((result) => {
     //             resolve(result);
     //         });
     //     })
