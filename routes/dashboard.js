@@ -15,9 +15,9 @@ router.use(cookieParser());
 router.post("/login", (req, res) => {
     console.log(`post/login req.cookies zijn: ${req.cookies.username}`);
     let username = req.body.username;
-  let password = req.body.password;
-  let DbResonse = database(username);
-  if (username != null || username != "" || username != undefined) {
+    let password = req.body.password;
+    let DbResonse = database(username);
+  if (username != undefined) {
     if (DbResonse.username == username && DbResonse.password == password) {
       // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
       // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
@@ -25,8 +25,6 @@ router.post("/login", (req, res) => {
       res.cookie("user", username, { maxAge: 900000, httpOnly: true });
       res.redirect("/dashboard");
     } else {
-      console.log(username, password);
-      console.log(process.env.admin, process.env.password);
       console.log("wrong credentials");
       // loggen naar database
     }
@@ -37,26 +35,22 @@ router.post("/login", (req, res) => {
 
 router.get("/login", (req, res) => {
     console.log(`/login req.cookies zijn: ${req.cookies.username}`);
-    let username = req.body.username;
-  let password = req.body.password;
-  if (username != null || username != "" || username != undefined) {
-    let DbResonse = database(req.cookies.user);
-    if (
-      DbResonse.username == req.cookies.user &&
-      DbResonse.password == req.cookies.auth
-    ) {
-      console.log("logged in");
-      let user = {username: req.cookies.user,
-      };
-      res.render("../views/dashboard", { user: user });
+    if (req.cookies.username != undefined) {
+        let DbResonse = database(req.cookies.user);
+        if(
+            DbResonse.username == req.cookies.user &&
+            DbResonse.password == req.cookies.auth
+        ){
+            console.log("logged in");
+            let user = {
+                username: req.cookies.user,
+            };
+            res.render("../views/dashboard", { user: user });
+        }
     } else {
-      console.log("not logged in");
-      res.render("../views/login", {});
+        console.log("not logged in");
+        res.render("../views/login", {});
     }
-  } else {
-    console.log("not logged in");
-    res.render("../views/login", {});
-  }
 });
 
 // route naar de dashboard. Ofte wel /dasboard/
@@ -64,10 +58,7 @@ router.get("/login", (req, res) => {
 // als de gebruiker geen cookie heeft word hij door gestuurd naar de login pagina
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
-  console.log("xxxxxxxxxxxxxxxxxxxxxx");
   console.log(`/ req.cookies zijn: ${req.cookies.username}`);
-  console.log(req.cookies.username != undefined);
-  console.log("xxxxxxxxxxxxxxxxxxxxxx");
     if (req.cookies.username != undefined) {
         let DbResonse = database(req.cookies.user);
         if(
