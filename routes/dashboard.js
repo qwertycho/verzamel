@@ -90,8 +90,8 @@ router.post("/login", (req, res) => {
 // });
 
 router.get("/login", (req, res) => {
-
-  res.send("hallo");
+   let data = conn.query("SELECT * FROM gebruikers WHERE username = ?", ["qwertycho"])
+  res.send("hallo " + data);
 });
 
 // route naar de dashboard. Ofte wel /dasboard/
