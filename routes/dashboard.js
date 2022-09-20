@@ -64,7 +64,10 @@ router.get("/login", (req, res) => {
 // als de gebruiker geen cookie heeft word hij door gestuurd naar de login pagina
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
+  console.log("xxxxxxxxxxxxxxxxxxxxxx");
   console.log(`/ req.cookies zijn: ${req.cookies.username}`);
+  console.log(req.cookies.username == undefined);
+  console.log("xxxxxxxxxxxxxxxxxxxxxx");
   let username = req.body.username;
   let password = req.body.password;
   if (username != null || username != "" || username != undefined) {
