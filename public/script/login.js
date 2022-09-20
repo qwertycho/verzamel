@@ -1,7 +1,7 @@
 const button = document.getElementById('login');
 const usernameField = document.getElementById('username');
 const passwordField = document.getElementById('password');
-
+console.log(document.cookie);
 const sendData = async (event) => {
     event.preventDefault();
     const username = usernameField.value;
