@@ -8,6 +8,9 @@ const mariadb = require("mariadb");
 // einde benodigde troep importeren
 router.use(cookieParser());
 
+function checkUser(username) {
+
+
 mariadb.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -17,9 +20,9 @@ mariadb.createConnection({
 })
   .then((conn) => {
     console.log("Connected to database");
-    conn.query("SELECT * FROM gebruikers")
+    conn.query("SELECT * FROM gebruikers WHERE username = ?", [username])
       .then((rows) => {
-        console.log(rows);
+        return rows;
         conn.end();
       })
       .catch((err) => {
@@ -31,6 +34,7 @@ mariadb.createConnection({
     console.log(err);
   });
 
+}
 
 
 
@@ -90,8 +94,10 @@ router.post("/login", (req, res) => {
 // });
 
 router.get("/login", (req, res) => {
-   let data = conn.query("SELECT * FROM gebruikers WHERE username = ?", ["qwertycho"])
-  res.send("hallo " + data);
+    let user = "qwertycho";
+    let DbResonse = checkUser(user);
+    console.log(DbResonse);
+    res.send("hallo ");
 });
 
 // route naar de dashboard. Ofte wel /dasboard/
