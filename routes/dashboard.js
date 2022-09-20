@@ -31,6 +31,7 @@ router.post("/login", (req, res) => {
         console.log(`password: ${password}`);
         console.log(`db username: ${DbResonse.username}`);
         console.log(`db password: ${DbResonse.password}`);
+        console.log(DbResonse);
         console.log("xxxxxxxxxxxxxxxxxxxxxx");
 
       // loggen naar database
