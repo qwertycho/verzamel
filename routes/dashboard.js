@@ -66,11 +66,9 @@ router.get("/login", (req, res) => {
 router.get("/", (req, res) => {
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
   console.log(`/ req.cookies zijn: ${req.cookies.username}`);
-  console.log(req.cookies.username == undefined);
+  console.log(req.cookies.username != undefined);
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
-  let username = req.body.username;
-  let password = req.body.password;
-  if (username != null || username != "" || username != undefined) {
+  if (username != null || username != "" || req.cookies.username != undefined) {
     let DbResonse = database(req.cookies.user);
     if (
       DbResonse.username == req.cookies.user &&
