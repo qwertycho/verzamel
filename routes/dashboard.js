@@ -92,7 +92,7 @@ router.get("/", (req, res) => {
         password: process.env.DB_PASSWORD,
         connectionLimit: 5
     });
-    async function login(username) {
+    async function connect(username) {
         let conn;
         try {
             conn = await pool.getConnection();
@@ -100,6 +100,7 @@ router.get("/", (req, res) => {
             console.log("xxxxxxxxxxxxxxxxxxxxxx");
             console.log(rows); 
             console.log("xxxxxxxxxxxxxxxxxxxxxx");
+            return rows;
 
         } catch (err) {
             throw err;
@@ -108,43 +109,11 @@ router.get("/", (req, res) => {
         }
     }
 
-    async function database(username) {
-        let conn;
-        let usernaam = username;
-       //  het proberen te verbinden met de database
-        try {
-           conn = await mariadb.createConnection({
-              user: process.env.DB_USER,
-              host: process.env.DB_HOST,
-              password: process.env.DB_PASSWORD,
-              database: process.env.DB_NAME,
-           });
-     
-           // Use Connection to get contacts data
-           var DBData = await login(conn, usernaam);
-     
-           //Print list of contacts
-           console.log("xxxxxxxxxxxxxxxxxxxxxx");
-             console.log(DBData);
-             console.log("xxxxxxxxxxxxxxxxxxxxxx");
-
-        } catch (err) {
-           // Manage Errors
-           console.log(err);
-        } finally {
-           // Close Connection
-           if (conn) conn.close();
-        }
-    }
-     
-     //Get list of contacts
-    function dbFunc(conn, username) {
-        if (username != null || username != "" || username != undefined) {
-            return new Promise((resolve, reject) => {
-                conn.query("SELECT * FROM gebruikers WHERE username = ?", username);
-            }) 
-        } else {
-            return "no username";
+    async function login(username) {
+       return new Promise((resolve, reject) => {
+            connect(username).then((result) => {
+                resolve(result);
+            });
         }
     }
 
