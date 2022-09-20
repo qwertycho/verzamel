@@ -80,7 +80,8 @@ router.post("/login", (req, res) => {
 
 router.get("/login", (req, res) => {
   console.log("get login");
-  console.log(req.cookies);
+  console.log(req.cookies.user);
+  console.log(req.cookies.auth);
   if (req.cookies.username != undefined) {
     checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
       if (authorised) {
