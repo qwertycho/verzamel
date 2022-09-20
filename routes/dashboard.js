@@ -109,7 +109,7 @@ router.get("/", (req, res) => {
     checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
       if (authorised) {
       console.log("logged in");
-      res.render("../views/dashboard", { user: req.cookies.username });
+      res.render("../views/dashboard", { user: req.cookies.user });
     }
   });
   } else {
