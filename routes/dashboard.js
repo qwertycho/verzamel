@@ -1,5 +1,5 @@
 // benodigde troep importeren
-const { resolveInclude } = require("ejs");
+const { resolveInclude, promiseImpl } = require("ejs");
 const express = require("express");
 const router = express.Router();
 const cookieParser = require("cookie-parser");
@@ -31,11 +31,10 @@ async function checkUser(userName, password) {
 
           if(row[0].password == password){
             console.log("passwords match");
-            return true;
-            console.log("ff checken");
+            Promise.resolve(true);
           } else {
             console.log("passwords don't match");
-            return false;
+            promise.resolve(false);
           }
 
       } catch (err) {
