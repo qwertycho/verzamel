@@ -8,35 +8,44 @@ const mariadb = require("mariadb");
 // einde benodigde troep importeren
 router.use(cookieParser());
 
-function checkUser(username) {
-
-
-mariadb.createConnection({
+const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: "admin_",
-  connectionLimit: 5,
-})
-  .then((conn) => {
-    console.log("Connected to database");
-    conn.query("SELECT * FROM gebruikers WHERE username = ?", [username])
-      .then((rows) => {
-        conn.end();
-        return rows;
-      })
-      .catch((err) => {
-        console.log(err);
-        conn.end();
-      });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  connectionLimit: 5
+});
 
+let checkUser = function() {
+  return new Promise(function(resolve, reject){
+    let conn;
+      try {
+        conn = pool.getConnection();
+        conn.query("SELECT * FROM gebruikers")
+        .then((rows) => { console.log(rows);})
+        .then(rows=>resolve(rows))
+        .catch(e => reject(e))
+
+    } catch (err) {
+      throw err;
+    } finally {
+      if (conn) return conn.end();
+    }
+  });
 }
 
-
+// stackoverflow
+// let getSomeDataFromDB = function(){
+//   return new Promise(function(resolve, reject){
+//     mariadb.createConnection([skip]).then(conn => {
+//       conn.query("SELECT 1 as val")
+//         .then(rows=>resolve(rows))
+//         .catch(e=>reject(e))
+//         .then(()=>conn.close())
+//     }).catch(e => reject(e))
+//   })
+// }
+// let rows = await getSomeDataFromDB()
 
 // dit is de route voor login
 // doordat dit bestand pas word aangesproken als de gebruiker naar /dashboard gaat is /login dus /dashboard/login
@@ -94,10 +103,13 @@ router.post("/login", (req, res) => {
 // });
 
 router.get("/login", (req, res) => {
+  async function main() {
     let user = "qwertycho";
     let DbResonse = checkUser(user);
     console.log(DbResonse);
-    res.send("hallo ");
+  }
+  main().then(res.send("hallo "));
+
 });
 
 // route naar de dashboard. Ofte wel /dasboard/
