@@ -19,7 +19,7 @@ async function main(username) {
         password: process.env.DB_PASSWORD,
        });
 
-       var row = await conn.query(`SELECT * FROM gebruikers WHERE username = ${username}`);
+       var row = await conn.query(`SELECT * FROM gebruikers`);
 
          return row;
     } catch (err) {
