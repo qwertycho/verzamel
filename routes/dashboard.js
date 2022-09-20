@@ -19,7 +19,7 @@ async function main(username) {
         password: process.env.DB_PASSWORD,
        });
 
-       var row = await conn.query("SELECT * FROM `test`.`users` WHERE `username` = ?", [username]);
+       var row = await conn.query(`SELECT * FROM gebruikers WHERE username = ${username}`);
 
          return row;
     } catch (err) {
@@ -63,7 +63,7 @@ router.post("/login", (req, res) => {
 });
 
 console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
-let test = await connect("test");
+let test = main("qwertycho");
 console.log(test);
 console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
 
