@@ -42,7 +42,10 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+    console.log("xxxxxxxxxxxxxxxxxxxxxx");
     console.log(`/login req.cookies zijn: ${req.cookies.username}`);
+    console.log(login("qwertycho"));
+    console.log("xxxxxxxxxxxxxxxxxxxxxx");
     if (req.cookies.username != undefined) {
         let DbResonse = login(req.cookies.user);
         if(
