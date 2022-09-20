@@ -91,7 +91,7 @@ module.exports = router;
 
     async function database(username) {
         let conn;
-        let username = username;
+        let usernaam = username;
        //  het proberen te verbinden met de database
         try {
            conn = await mariadb.createConnection({
@@ -102,7 +102,7 @@ module.exports = router;
            });
      
            // Use Connection to get contacts data
-           var DBData = await login(conn, username);
+           var DBData = await login(conn, usernaam);
      
            //Print list of contacts
            console.log("xxxxxxxxxxxxxxxxxxxxxx");
