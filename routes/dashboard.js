@@ -22,8 +22,8 @@ mariadb.createConnection({
     console.log("Connected to database");
     conn.query("SELECT * FROM gebruikers WHERE username = ?", [username])
       .then((rows) => {
-        return rows;
         conn.end();
+        return rows;
       })
       .catch((err) => {
         console.log(err);
