@@ -52,8 +52,7 @@ router.post("/login", (req, res) => {
   console.log(req.body);
   if (req.body.username != undefined) {
     checkUser(req.body.username, req.body.password).then( (authorised) => {
-      console.log("checkUser");
-      console.log(authorised);
+      console.log("checkUser" + authorised);
       if (authorised) {
           // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
           // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
