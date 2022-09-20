@@ -98,7 +98,8 @@ router.get("/login", (req, res) => {
 // als de gebruiker geen cookie heeft word hij door gestuurd naar de login pagina
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
-  console.log(`/ req.cookies zijn: ${req.cookies}`);
+  console.log(`/ req.cookies zijn:`);
+  console.log(req.cookies);
   if (req.cookies.username != undefined) {
     checkUser(req.cookies.username, req.cookies.auth).then( (authorised) => {
     if (authorised) {
