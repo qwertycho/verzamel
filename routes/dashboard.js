@@ -28,23 +28,21 @@ async function checkUser(userName, password) {
         // check of de gebruiker bestaat
         const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
         console.log("conn.query");
-        console.log(row[0].gebruikerID);
-        console.log(row[0].username);
-        console.log(row[0].password);
-        console.log(row[0].isAdmin);
+
+          if(row[0].password == password){
+            console.log("passwords match");
+            return true;
+          } else {
+            console.log("passwords don't match");
+            return false;
+          }
+          
       } catch (err) {
         console.log("db error");
         console.log(err);
       throw err;
       } finally {
       if (conn) return conn.end();
-        if(row[0].password == password){
-          console.log("passwords match");
-          return true;
-        } else {
-          console.log("passwords don't match");
-          return false;
-        }
       }
 }
 
@@ -57,7 +55,7 @@ router.post("/login", (req, res) => {
   console.log(req.body);
   if (req.body.username != undefined) {
     checkUser(req.body.username, req.body.password).then( (authorised) => {
-      console.log("checkUser" + authorised);
+      console.log("checkUser " + authorised);
       if (authorised) {
           // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
           // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
