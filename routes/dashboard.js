@@ -37,6 +37,8 @@ router.post("/login", (req, res) => {
 
 router.get("/login", (req, res) => {
   console.log(req.cookies);
+  let username = req.body.username;
+  let password = req.body.password;
   if (username != null || username != "" || username != undefined) {
     let DbResonse = database(req.cookies.user);
     if (
@@ -63,6 +65,8 @@ router.get("/login", (req, res) => {
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
   console.log(req.cookies);
+  let username = req.body.username;
+  let password = req.body.password;
   if (username != null || username != "" || username != undefined) {
     let DbResonse = database(req.cookies.user);
     if (
