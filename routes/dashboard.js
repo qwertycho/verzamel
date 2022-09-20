@@ -49,6 +49,8 @@ async function checkUser(userName, password) {
 router.post("/login", (req, res) => {
   if (username != undefined) {
     checkUser(req.body.username, req.body.password).then( (authorised) => {
+      console.log("checkUser");
+      console.log(authorised);
       if (authorised) {
           // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
           // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
@@ -57,6 +59,8 @@ router.post("/login", (req, res) => {
           res.redirect("/dashboard");
         } else {
           console.log("wrong credentials");
+          console.log(req.body.username);
+          console.log(req.body.password);
         }
     });
   } else {
