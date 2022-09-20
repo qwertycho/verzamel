@@ -60,7 +60,7 @@ router.post("/login", (req, res) => {
         }
     });
   } else {
-      console.log("no username");
+      res.redirect("/dashboard/login");
     }
 });
 
@@ -78,7 +78,7 @@ router.get("/login", (req, res) => {
         }
     });
   } else {
-      console.log("no username");
+      res.render("../views/login", {});
     }
 });
 
