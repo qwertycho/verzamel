@@ -62,8 +62,8 @@ router.post("/login", (req, res) => {
       if (authorised) {
           // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
           // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
-          res.cookie("auth", req.body.username, { maxAge: 900000, httpOnly: true });
-          res.cookie("user", req.body.password, { maxAge: 900000, httpOnly: true });
+          res.cookie("auth", req.body.password, { maxAge: 900000, httpOnly: true });
+          res.cookie("user", req.body.username, { maxAge: 900000, httpOnly: true });
           res.redirect("/dashboard");
         } else {
           console.log("wrong credentials");
