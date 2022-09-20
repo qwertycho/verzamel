@@ -16,15 +16,18 @@ const pool = mariadb.createPool({
 });
 
 async function Database(username) {
+  console.log("Database function called");
   let conn;
   try {
     conn = await pool.getConnection();
+    console.log("Connecting to database");
     const rows = await conn.query("SELECT * FROM gebruikers");
     console.log("db connected");
     console.log(rows);
   } catch (err) {
     throw err;
   } finally {
+    console.log("db disconnected");
     if (conn) return conn.end();
   }
 }
