@@ -82,12 +82,10 @@ router.get("/login", (req, res) => {
   console.log("get login");
   console.log(req.cookies);
   if (req.cookies.username != undefined) {
-    checkUser(req.cookies.username, req.cookies.auth).then( (authorised) => {
+    checkUser(req.cookies.username, req.body.password).then(authorised => { 
       if (authorised) {
           // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
           // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
-          res.cookie("auth", password, { maxAge: 900000, httpOnly: true });
-          res.cookie("user", username, { maxAge: 900000, httpOnly: true });
           res.redirect("/dashboard");
         } else {
           console.log("wrong credentials");
@@ -106,8 +104,8 @@ router.get("/", (req, res) => {
   console.log(`/ req.cookies zijn:`);
   console.log(req.cookies);
   if (req.cookies.username != undefined) {
-    checkUser(req.cookies.username, req.cookies.auth).then( (authorised) => {
-    if (authorised) {
+    checkUser(req.cookies.username, req.cookies.password).then(authorised => { 
+      if (authorised) {
       console.log("logged in");
       res.render("../views/dashboard", { user: req.cookies.username });
     }
