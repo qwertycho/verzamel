@@ -49,6 +49,8 @@ async function checkUser(userName, password) {
 // Dit is een post route en geen get route. Hier word info dus op geplaats. In dit geval de login data
 // Nu word gecheckt of de login data overeenkomt met wat in het dotenv bestand staat
 router.post("/login", (req, res) => {
+  console.log("login");
+  console.log(req.body);
   if (req.body.username != undefined) {
     checkUser(req.body.username, req.body.password).then( (authorised) => {
       console.log("checkUser");
@@ -73,6 +75,8 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
+  res.render("get login");
+  console.log(req.cookies);
   if (req.cookies.username != undefined) {
     checkUser(req.cookies.username, req.cookies.auth).then( (authorised) => {
       if (authorised) {
