@@ -88,8 +88,10 @@ router.get("/login", (req, res) => {
     let user = "qwertycho";
     return await Database(user);
   }
-
-  res.send(test());
+  console.log("xxxxxxxxxxxxxxxxxxxxxx");
+  console.log(test());
+  res.send("geladen");
+  console.log("xxxxxxxxxxxxxxxxxxxxxx");
 });
 
 // route naar de dashboard. Ofte wel /dasboard/
