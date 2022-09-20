@@ -13,7 +13,7 @@ router.use(cookieParser());
 // Dit is een post route en geen get route. Hier word info dus op geplaats. In dit geval de login data
 // Nu word gecheckt of de login data overeenkomt met wat in het dotenv bestand staat
 router.post("/login", (req, res) => {
-    console.log(`post/login req.cookies zijn: ${req.cookies}`);
+    console.log(`post/login req.cookies zijn: ${req.cookies.username}`);
     let username = req.body.username;
   let password = req.body.password;
   let DbResonse = database(username);
@@ -36,7 +36,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    console.log(`/login req.cookies zijn: ${req.cookies}`);
+    console.log(`/login req.cookies zijn: ${req.cookies.username}`);
     let username = req.body.username;
   let password = req.body.password;
   if (username != null || username != "" || username != undefined) {
@@ -64,7 +64,7 @@ router.get("/login", (req, res) => {
 // als de gebruiker geen cookie heeft word hij door gestuurd naar de login pagina
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
-  console.log(`/ req.cookies zijn: ${req.cookies}`);
+  console.log(`/ req.cookies zijn: ${req.cookies.username}`);
   let username = req.body.username;
   let password = req.body.password;
   if (username != null || username != "" || username != undefined) {
