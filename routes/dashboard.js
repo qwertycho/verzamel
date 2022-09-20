@@ -22,12 +22,13 @@ async function checkUser(userName) {
         try {
         conn = await pool.getConnection();
         console.log("pool.getConnection");
-        const res = await conn.query("SELECT * FROM gebruikers WHERE gebruikersnaam = ?", [userName]);
+        const res = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
         console.log("conn.query");
         console.log(res);
       console.log("ooooooooooooooooooooooooooooooooooooooo");
       } catch (err) {
         console.log("db error");
+        console.log(err);
       throw err;
       } finally {
         console.log("finally");
