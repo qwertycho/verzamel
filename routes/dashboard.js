@@ -10,6 +10,7 @@ router.use(cookieParser());
 
 
 async function main(username) {
+  console.log("main function");
     let conn;
  
     try {
@@ -20,7 +21,7 @@ async function main(username) {
        });
 
        var row = await conn.query(`SELECT * FROM gebruikers`);
-
+        console.log(row);
          return row;
     } catch (err) {
          throw err;
@@ -46,14 +47,14 @@ router.post("/login", (req, res) => {
       res.cookie("user", username, { maxAge: 900000, httpOnly: true });
       res.redirect("/dashboard");
     } else {
-        console.log("xxxxxxxxxxxxxxxxxxxxxx");
+        console.log("ooooooooooooooooooooo");
       console.log("wrong credentials");
         console.log(`username: ${username}`);
         console.log(`password: ${password}`);
         console.log(`db username: ${DbResonse.username}`);
         console.log(`db password: ${DbResonse.password}`);
         console.log(DbResonse);
-        console.log("xxxxxxxxxxxxxxxxxxxxxx");
+        console.log("ooooooooooooooooooooo");
 
       // loggen naar database
     }
