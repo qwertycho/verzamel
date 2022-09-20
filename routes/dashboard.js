@@ -42,7 +42,7 @@ router.post("/login", (req, res) => {
 });
 
 console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
-let test = await login("test");
+let test = login("test");
 console.log(test);
 console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
 
