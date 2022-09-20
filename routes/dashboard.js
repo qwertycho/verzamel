@@ -16,7 +16,7 @@ router.post("/login", (req, res) => {
     console.log(`post/login req.cookies zijn: ${req.cookies.username}`);
     let username = req.body.username;
     let password = req.body.password;
-    let DbResonse = login(username);
+    let DbResonse = connect(username);
   if (username != undefined) {
     if (DbResonse.username == username && DbResonse.password == password) {
       // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
@@ -42,7 +42,7 @@ router.post("/login", (req, res) => {
 });
 
 console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
-let test = login("test");
+let test = connect("test");
 console.log(test);
 console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
 
@@ -51,7 +51,7 @@ router.get("/login", (req, res) => {
     console.log(`/login req.cookies zijn: ${req.cookies.username}`);
     console.log("xxxxxxxxxxxxxxxxxxxxxx");
     if (req.cookies.username != undefined) {
-        let DbResonse = login(req.cookies.user);
+        let DbResonse = connect(req.cookies.user);
         if(
             DbResonse.username == req.cookies.user &&
             DbResonse.password == req.cookies.auth
@@ -116,12 +116,12 @@ router.get("/", (req, res) => {
         }
     }
 
-    async function login(username) {
-       return new Promise((resolve, reject) => {
-            connect(username).then((result) => {
-                resolve(result);
-            });
-        })
-    }
+    // async function login(username) {
+    //    return new Promise((resolve, reject) => {
+    //         connect(username).then((result) => {
+    //             resolve(result);
+    //         });
+    //     })
+    // }
 
     module.exports = router;
