@@ -119,7 +119,9 @@ module.exports = router;
      //Get list of contacts
     function login(conn, username) {
         if (username != null || username != "" || username != undefined) {
-            return conn.query("SELECT * FROM gebruikers WHERE username = ?", username);
+            return new Promise((resolve, reject) => {
+                conn.query("SELECT * FROM gebruikers WHERE username = ?", username);
+            }) 
         } else {
             return "no username";
         }
