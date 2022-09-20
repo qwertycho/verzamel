@@ -114,7 +114,7 @@ router.get("/", (req, res) => {
             connect(username).then((result) => {
                 resolve(result);
             });
-        }
+        })
     }
 
     module.exports = router;
