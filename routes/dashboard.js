@@ -68,7 +68,7 @@ router.get("/", (req, res) => {
   console.log(`/ req.cookies zijn: ${req.cookies.username}`);
   console.log(req.cookies.username != undefined);
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
-  if (username != null || username != "" || req.cookies.username != undefined) {
+  if (req.cookies.username != null || req.cookies.username != "" || req.cookies.username != undefined) {
     let DbResonse = database(req.cookies.user);
     if (
       DbResonse.username == req.cookies.user &&
