@@ -8,7 +8,7 @@ const navBalk = {
         <span></span>
 
         <!-- logo -->
-        <a href="#iets" class="menu-logo">
+        <a href="/" class="menu-logo">
             <img src="media/pf 3.jpg"/>
         </a>
 
@@ -38,7 +38,7 @@ const navBalk = {
                     </a>
                 </li>
                 <li>
-                    <a href="#iets">
+                    <a href="/dashboard">
                         Login
                     </a>
                 </li>

@@ -26,7 +26,7 @@ app.use(express.static(__dirname + '/public'));
 // res.render renderd de template index.ejs en stuurt deze als html naar de client
 // het object word meegenomen in het ejs bestand om de pagina te vullen
 app.get("/", (req, res) => {
-      res.render("index", {text: "hello"});
+      res.render("index", {text: "hello", navBalk: navBalk.navigatieBalk});
 });
 
 // route naar het dashboard

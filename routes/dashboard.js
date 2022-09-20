@@ -4,6 +4,9 @@ const express = require('express');
 const router = express.Router();
 const cookieParser = require('cookie-parser');
 
+//peters troep
+const navBalk = require('../server/nav.js');
+
 // einde benodigde troep importeren
 router.use(cookieParser());
 
@@ -40,7 +43,7 @@ router.get('/', (req, res) => {
         let user = {
             username: process.env.admin,
         }
-        res.render('../views/dashboard', {user: user});
+        res.render('../views/dashboard', {user: user , navBalk: navBalk.navigatieBalk});
     } else {
         console.log("not logged in");
         res.render('../views/login', {});
