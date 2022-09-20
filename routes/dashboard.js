@@ -38,7 +38,7 @@ async function checkUser(userName, password) {
       throw err;
       } finally {
       if (conn) return conn.end();
-        if(row.password == password){
+        if(row[0].password == password){
           console.log("passwords match");
           return true;
         } else {
