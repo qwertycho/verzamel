@@ -85,7 +85,28 @@ router.get("/", (req, res) => {
     }
 });
 
-module.exports = router;
+// db shit
+    const pool = mariadb.createPool({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        connectionLimit: 5
+    });
+    async function login(username) {
+        let conn;
+        try {
+            conn = await pool.getConnection();
+            const rows = await conn.query(`SELECT * FROM gebruikers WHERE username = ${username}`);
+            console.log("xxxxxxxxxxxxxxxxxxxxxx");
+            console.log(rows); 
+            console.log("xxxxxxxxxxxxxxxxxxxxxx");
+
+        } catch (err) {
+            throw err;
+            } finally {
+            if (conn) return conn.end();
+        }
+    }
 
     async function database(username) {
         let conn;
@@ -117,7 +138,7 @@ module.exports = router;
     }
      
      //Get list of contacts
-    function login(conn, username) {
+    function dbFunc(conn, username) {
         if (username != null || username != "" || username != undefined) {
             return new Promise((resolve, reject) => {
                 conn.query("SELECT * FROM gebruikers WHERE username = ?", username);
@@ -127,3 +148,4 @@ module.exports = router;
         }
     }
 
+    module.exports = router;
