@@ -31,10 +31,10 @@ async function checkUser(userName, password) {
 
           if(row[0].password == password){
             console.log("passwords match");
-            Promise.resolve(true);
+            return true;
           } else {
             console.log("passwords don't match");
-            promise.resolve(false);
+           return false;
           }
 
       } catch (err) {
@@ -55,7 +55,7 @@ router.post("/login", (req, res) => {
   console.log("post login");
   console.log(req.body);
   if (req.body.username != undefined) {
-    checkUser(req.body.username, req.body.password).then( function(authorised) {
+    checkUser(req.body.username, req.body.password).then( (authorised) => {
       console.log("checkUser " + authorised);
       if (authorised) {
           // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
