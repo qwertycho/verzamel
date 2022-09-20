@@ -7,6 +7,8 @@ const { Router } = require('express');
 const port = dotenv.config().parsed.PORT || 3000;
 const ejs = require('ejs');
 
+const navBalk = require('./server/nav.js');
+
 // je kan een .env bestand aanmaken om je wachtwoorden te verbergen
 // daar moet je ook PORT=3000 doen om de server te starten
 // het .evn bestand word niet meegenomen in git repository, dit is voor veiligheid
