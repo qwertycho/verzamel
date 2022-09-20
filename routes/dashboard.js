@@ -68,24 +68,19 @@ router.get("/", (req, res) => {
   console.log(`/ req.cookies zijn: ${req.cookies.username}`);
   console.log(req.cookies.username != undefined);
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
-  if (req.cookies.username != null || req.cookies.username != "" || req.cookies.username != undefined) {
-    let DbResonse = database(req.cookies.user);
-    if (
-      DbResonse.username == req.cookies.user &&
-      DbResonse.password == req.cookies.auth
-    ) {
-      console.log("logged in");
-      let user = {username: req.cookies.user,
-      };
-      res.render("../views/dashboard", { user: user });
-    } else {
-      console.log("not logged in");
-      res.render("../views/login", {});
+    if (req.cookies.username != undefined) {
+        let DbResonse = database(req.cookies.user);
+        if(
+            DbResonse.username == req.cookies.user &&
+            DbResonse.password == req.cookies.auth
+        ){
+            console.log("logged in");
+            let user = {
+                username: req.cookies.user,
+            };
+            res.render("../views/dashboard", { user: user });
+        }
     }
-  } else {
-    console.log("not logged in");
-    res.render("../views/login", {});
-  }
 });
 
 module.exports = router;
