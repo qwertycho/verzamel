@@ -32,16 +32,18 @@ async function checkUser(userName, password) {
           if(row[0].password == password){
             console.log("passwords match");
             return true;
+            console.log("ff checken");
           } else {
             console.log("passwords don't match");
             return false;
           }
-          
+
       } catch (err) {
         console.log("db error");
         console.log(err);
       throw err;
       } finally {
+        console.log("finally");
       if (conn) return conn.end();
       }
 }
@@ -54,7 +56,7 @@ router.post("/login", (req, res) => {
   console.log("post login");
   console.log(req.body);
   if (req.body.username != undefined) {
-    checkUser(req.body.username, req.body.password).then( (authorised) => {
+    checkUser(req.body.username, req.body.password).then( function(authorised) {
       console.log("checkUser " + authorised);
       if (authorised) {
           // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
