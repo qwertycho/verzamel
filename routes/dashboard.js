@@ -88,7 +88,7 @@ router.post("/login", (req, res) => {
 //     }
 // });
 
-router.get("/login", (req, res) => {}
+router.get("/login", (req, res) => {
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
   Database("qwertycho")
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
