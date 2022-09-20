@@ -41,10 +41,14 @@ router.post("/login", (req, res) => {
   }
 });
 
+console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
+let test = await login("test");
+console.log(test);
+console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
+
 router.get("/login", (req, res) => {
     console.log("xxxxxxxxxxxxxxxxxxxxxx");
     console.log(`/login req.cookies zijn: ${req.cookies.username}`);
-    console.log( await login("qwertycho"));
     console.log("xxxxxxxxxxxxxxxxxxxxxx");
     if (req.cookies.username != undefined) {
         let DbResonse = login(req.cookies.user);
