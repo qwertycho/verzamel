@@ -103,8 +103,9 @@ router.get("/login", (req, res) => {
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
   console.log(`/ req.cookies zijn:`);
-  console.log(req.cookies);
-  if (req.cookies.username != undefined) {
+  console.log(req.cookies.user);
+  console.log(req.cookies.auth);
+  if (req.cookies.user != undefined) {
     checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
       if (authorised) {
       console.log("logged in");
