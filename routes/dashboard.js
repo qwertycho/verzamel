@@ -41,10 +41,11 @@ async function checkUser(userName, password) {
         console.log("db error");
         console.log(err);
       throw err;
-      } finally {
-        console.log("finally");
-      if (conn) return conn.end();
       }
+      //  finally {
+      //   console.log("finally");
+      // if (conn) return conn.end();
+      // }
 }
 
 // dit is de route voor login
@@ -55,9 +56,9 @@ router.post("/login", (req, res) => {
   console.log("post login");
   console.log(req.body);
   if (req.body.username != undefined) {
-    checkUser(req.body.username, req.body.password).then(x => { 
+    checkUser(req.body.username, req.body.password).then(authorised => { 
       console.log("authenticating");
-      console.log(x); 
+      console.log(authorised); 
       if (authorised) {
           // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
           // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
