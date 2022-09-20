@@ -62,10 +62,12 @@ router.post("/login", (req, res) => {
   }
 });
 
-console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
-let test = main("qwertycho");
-console.log(test);
-console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
+async function test() {
+  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
+  let test = await main("qwertycho");
+  console.log(test);
+  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
+} test();
 
 router.get("/login", (req, res) => {
     console.log("xxxxxxxxxxxxxxxxxxxxxx");
