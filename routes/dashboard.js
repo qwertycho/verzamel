@@ -17,16 +17,22 @@ const pool = mariadb.createPool({
 });
 
 async function checkUser(userName) {
-      let conn;
-      try {
-      conn = await pool.getConnection();
-      const res = await conn.query("SELECT * FROM gebruikers WHERE gebruikersnaam = ?", [userName]);
-      console.log(res);
-    
+      console.log("ooooooooooooooooooooooooooooooooooooooo");
+        let conn;
+        try {
+        conn = await pool.getConnection();
+        console.log("pool.getConnection");
+        const res = await conn.query("SELECT * FROM gebruikers WHERE gebruikersnaam = ?", [userName]);
+        console.log("conn.query");
+        console.log(res);
+      console.log("ooooooooooooooooooooooooooooooooooooooo");
       } catch (err) {
+        console.log("db error");
       throw err;
       } finally {
+        console.log("finally");
       if (conn) return conn.end();
+      console.log("return conn.end");
       return res;
       }
 }
@@ -100,7 +106,7 @@ router.post("/login", (req, res) => {
 // });
 
 router.get("/login", (req, res) => {
-
+  console.log("/login");
   checkUser("qwertycho").then(res.send("hallo "));
 
 });
