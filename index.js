@@ -6,6 +6,9 @@ const dotenv = require('dotenv');
 const { Router } = require('express');
 const port = dotenv.config().parsed.PORT || 3000;
 const ejs = require('ejs');
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const navBalk = require('./server/nav.js');
 
@@ -26,47 +29,10 @@ app.get("/", (req, res) => {
       res.render("index", {text: "hello"});
 });
 
-// de hooft route naar de root van de server
-app.get('/database', (req, res) => {
-   
-// dit is de connectie met de database
-// nog om te testen
-// Main function
-async function main() {
-    let conn;
- 
-   //  het proberen te verbinden met de database
-    try {
-       conn = await mariadb.createConnection({
-          user: dotenv.config().parsed.username,
-          host: dotenv.config().parsed.DB_host,
-          password: dotenv.config().parsed.password,
-          database: "testDB",
-       });
- 
-       // Use Connection to get contacts data
-       var rows = await get_contacts(conn);
- 
-       //Print list of contacts
-         console.log(rows.naam);
-         res.send(`dit is iets: ${rows[0].naam}`);
-    } catch (err) {
-       // Manage Errors
-       console.log(err);
-    } finally {
-       // Close Connection
-       if (conn) conn.close();
-    }
- }
- 
- //Get list of contacts
- function get_contacts(conn) {
-    return conn.query("SELECT * FROM dataTable");
- }
-
-main();
-
-})
+// route naar het dashboard
+// Deze route zit in /routes/dashboard.js
+const dashboard = require('./routes/dashboard');
+app.use('/dashboard', dashboard);
 
 // de server starten
 app.listen(port, () => {
