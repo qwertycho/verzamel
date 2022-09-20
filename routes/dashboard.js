@@ -16,22 +16,19 @@ const pool = mariadb.createPool({
   connectionLimit: 5
 });
 
-let checkUser = function() {
-  return new Promise(function(resolve, reject){
-    let conn;
+async function checkUser(userName) {
+      let conn;
       try {
-        conn = pool.getConnection();
-        conn.query("SELECT * FROM gebruikers")
-        .then((rows) => { console.log(rows);})
-        .then(rows=>resolve(rows))
-        .catch(e => reject(e))
-
-    } catch (err) {
+      conn = await pool.getConnection();
+      const res = await conn.query("SELECT * FROM gebruikers");
+      console.log(res);
+    
+      } catch (err) {
       throw err;
-    } finally {
+      } finally {
       if (conn) return conn.end();
-    }
-  });
+      return res;
+      }
 }
 
 // stackoverflow
@@ -103,12 +100,8 @@ router.post("/login", (req, res) => {
 // });
 
 router.get("/login", (req, res) => {
-  async function main() {
-    let user = "qwertycho";
-    let DbResonse = checkUser(user);
-    console.log(DbResonse);
-  }
-  main().then(res.send("hallo "));
+
+  checkUser().then(res.send("hallo "));
 
 });
 
