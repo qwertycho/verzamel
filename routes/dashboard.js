@@ -27,6 +27,7 @@ async function main(username) {
     } finally {
             if (conn) return conn.end();
     }
+}
 
 // dit is de route voor login
 // doordat dit bestand pas word aangesproken als de gebruiker naar /dashboard gaat is /login dus /dashboard/login
