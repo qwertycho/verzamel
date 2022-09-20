@@ -28,10 +28,10 @@ async function checkUser(userName, password) {
         // check of de gebruiker bestaat
         const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
         console.log("conn.query");
-        console.log(row.gebruikerID);
-        console.log(row.username);
-        console.log(row.password);
-        console.log(row.isAdmin);
+        console.log(row[0].gebruikerID);
+        console.log(row[0].username);
+        console.log(row[0].password);
+        console.log(row[0].isAdmin);
       } catch (err) {
         console.log("db error");
         console.log(err);
