@@ -16,7 +16,7 @@ router.post("/login", (req, res) => {
     console.log(`post/login req.cookies zijn: ${req.cookies.username}`);
     let username = req.body.username;
     let password = req.body.password;
-    let DbResonse = database(username);
+    let DbResonse = await database(username);
   if (username != undefined) {
     if (DbResonse.username == username && DbResonse.password == password) {
       // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
@@ -44,7 +44,7 @@ router.post("/login", (req, res) => {
 router.get("/login", (req, res) => {
     console.log(`/login req.cookies zijn: ${req.cookies.username}`);
     if (req.cookies.username != undefined) {
-        let DbResonse = database(req.cookies.user);
+        let DbResonse = await database(req.cookies.user);
         if(
             DbResonse.username == req.cookies.user &&
             DbResonse.password == req.cookies.auth
@@ -68,7 +68,7 @@ router.get("/login", (req, res) => {
 router.get("/", (req, res) => {
   console.log(`/ req.cookies zijn: ${req.cookies.username}`);
     if (req.cookies.username != undefined) {
-        let DbResonse = database(req.cookies.user);
+        let DbResonse = await database(req.cookies.user);
         if(
             DbResonse.username == req.cookies.user &&
             DbResonse.password == req.cookies.auth
