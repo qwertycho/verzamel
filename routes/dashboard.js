@@ -75,7 +75,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.render("get login");
+  console.log("get login");
   console.log(req.cookies);
   if (req.cookies.username != undefined) {
     checkUser(req.cookies.username, req.cookies.auth).then( (authorised) => {
