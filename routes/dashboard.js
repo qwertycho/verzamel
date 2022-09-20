@@ -1,33 +1,33 @@
 // benodigde troep importeren
-const { resolveInclude } = require('ejs');
-const express = require('express');
+const { resolveInclude } = require("ejs");
+const express = require("express");
 const router = express.Router();
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const mariadb = require("mariadb");
 
 // einde benodigde troep importeren
 router.use(cookieParser());
 
 
-async function main(username) {
-  console.log("main function");
-    let conn;
- 
-    try {
-       conn = await mariadb.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-       });
+const mariadb = require("mariadb");
+const pool = mariadb.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  connectionLimit: 5,
+});
 
-       var row = await conn.query(`SELECT * FROM gebruikers`);
-        console.log(row);
-         return row;
-    } catch (err) {
-         throw err;
-    } finally {
-            if (conn) return conn.end();
-    }
+async function Database(username) {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const rows = await conn.query("SELECT * FROM gebruikers");
+    return rows;
+  } catch (err) {
+    throw err;
+  } finally {
+    if (conn) return conn.end();
+  }
 }
 
 // dit is de route voor login
@@ -35,10 +35,10 @@ async function main(username) {
 // Dit is een post route en geen get route. Hier word info dus op geplaats. In dit geval de login data
 // Nu word gecheckt of de login data overeenkomt met wat in het dotenv bestand staat
 router.post("/login", (req, res) => {
-    console.log(`post/login req.cookies zijn: ${req.cookies.username}`);
-    let username = req.body.username;
-    let password = req.body.password;
-    let DbResonse = main(username);
+  console.log(`post/login req.cookies zijn: ${req.cookies.username}`);
+  let username = req.body.username;
+  let password = req.body.password;
+  let DbResonse = main(username);
   if (username != undefined) {
     if (DbResonse.username == username && DbResonse.password == password) {
       // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
@@ -47,14 +47,14 @@ router.post("/login", (req, res) => {
       res.cookie("user", username, { maxAge: 900000, httpOnly: true });
       res.redirect("/dashboard");
     } else {
-        console.log("ooooooooooooooooooooo");
+      console.log("ooooooooooooooooooooo");
       console.log("wrong credentials");
-        console.log(`username: ${username}`);
-        console.log(`password: ${password}`);
-        console.log(`db username: ${DbResonse.username}`);
-        console.log(`db password: ${DbResonse.password}`);
-        console.log(DbResonse);
-        console.log("ooooooooooooooooooooo");
+      console.log(`username: ${username}`);
+      console.log(`password: ${password}`);
+      console.log(`db username: ${DbResonse.username}`);
+      console.log(`db password: ${DbResonse.password}`);
+      console.log(DbResonse);
+      console.log("ooooooooooooooooooooo");
 
       // loggen naar database
     }
@@ -63,33 +63,35 @@ router.post("/login", (req, res) => {
   }
 });
 
-async function test() {
-  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
-  let test = await main("qwertycho");
-  console.log(test);
-  console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee");
-} test();
+// router.get("/login", (req, res) => {
+//     console.log("xxxxxxxxxxxxxxxxxxxxxx");
+//     console.log(`/login req.cookies zijn: ${req.cookies.username}`);
+//     console.log("xxxxxxxxxxxxxxxxxxxxxx");
+//     if (req.cookies.username != undefined) {
+//         let DbResonse = main(req.cookies.user);
+//         if(
+//             DbResonse.username == req.cookies.user &&
+//             DbResonse.password == req.cookies.auth
+//         ){
+//             console.log("logged in");
+//             let user = {
+//                 username: req.cookies.user,
+//             };
+//             res.render("../views/dashboard", { user: user });
+//         }
+//     } else {
+//         console.log("not logged in");
+//         res.render("../views/login", {});
+//     }
+// });
 
 router.get("/login", (req, res) => {
-    console.log("xxxxxxxxxxxxxxxxxxxxxx");
-    console.log(`/login req.cookies zijn: ${req.cookies.username}`);
-    console.log("xxxxxxxxxxxxxxxxxxxxxx");
-    if (req.cookies.username != undefined) {
-        let DbResonse = main(req.cookies.user);
-        if(
-            DbResonse.username == req.cookies.user &&
-            DbResonse.password == req.cookies.auth
-        ){
-            console.log("logged in");
-            let user = {
-                username: req.cookies.user,
-            };
-            res.render("../views/dashboard", { user: user });
-        }
-    } else {
-        console.log("not logged in");
-        res.render("../views/login", {});
-    }
+  async function test() {
+    let user = "qwertycho";
+    return await Database(user);
+  }
+
+  res.send(test());
 });
 
 // route naar de dashboard. Ofte wel /dasboard/
@@ -98,32 +100,30 @@ router.get("/login", (req, res) => {
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
   console.log(`/ req.cookies zijn: ${req.cookies.username}`);
-    if (req.cookies.username != undefined) {
-        let DbResonse = main(req.cookies.user);
-        if(
-            DbResonse.username == req.cookies.user &&
-            DbResonse.password == req.cookies.auth
-        ){
-            console.log("logged in");
-            let user = {
-                username: req.cookies.user,
-            };
-            res.render("../views/dashboard", { user: user });
-        }
-    } else {
-        console.log("not logged in");
-        res.render("../views/login", {});
+  if (req.cookies.username != undefined) {
+    let DbResonse = main(req.cookies.user);
+    if (
+      DbResonse.username == req.cookies.user &&
+      DbResonse.password == req.cookies.auth
+    ) {
+      console.log("logged in");
+      let user = {
+        username: req.cookies.user,
+      };
+      res.render("../views/dashboard", { user: user });
     }
+  } else {
+    console.log("not logged in");
+    res.render("../views/login", {});
+  }
 });
 
+// async function login(username) {
+//    return new Promise((resolve, reject) => {
+//         main(username).then((result) => {
+//             resolve(result);
+//         });
+//     })
+// }
 
-
-    // async function login(username) {
-    //    return new Promise((resolve, reject) => {
-    //         main(username).then((result) => {
-    //             resolve(result);
-    //         });
-    //     })
-    // }
-
-    module.exports = router;
+module.exports = router;
