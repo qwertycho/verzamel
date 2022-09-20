@@ -120,6 +120,6 @@ module.exports = router;
      
      //Get list of contacts
     function login(conn, username) {
-        return conn.query(`SELECT * FROM dataTable WHERE username = ${username}`);
+        return conn.query(`SELECT * FROM gebruikers WHERE username = ${username}`);
     }
 
