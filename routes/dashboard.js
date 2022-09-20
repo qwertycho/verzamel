@@ -89,7 +89,9 @@ router.get("/login", (req, res) => {
     return await Database(user);
   }
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
-  console.log(test());
+  test().then((result) => {
+    console.log(result);
+  });
   res.send("geladen");
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
 });
