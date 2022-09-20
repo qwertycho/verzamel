@@ -8,8 +8,6 @@ const mariadb = require("mariadb");
 // einde benodigde troep importeren
 router.use(cookieParser());
 
-
-const mariadb = require("mariadb");
 const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
