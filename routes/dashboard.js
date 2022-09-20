@@ -25,7 +25,14 @@ router.post("/login", (req, res) => {
       res.cookie("user", username, { maxAge: 900000, httpOnly: true });
       res.redirect("/dashboard");
     } else {
+        console.log("xxxxxxxxxxxxxxxxxxxxxx");
       console.log("wrong credentials");
+        console.log(`username: ${username}`);
+        console.log(`password: ${password}`);
+        console.log(`db username: ${DbResonse.username}`);
+        console.log(`db password: ${DbResonse.password}`);
+        console.log("xxxxxxxxxxxxxxxxxxxxxx");
+
       // loggen naar database
     }
   } else {
