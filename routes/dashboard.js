@@ -21,9 +21,9 @@ async function Database(username) {
   try {
     conn = await pool.getConnection();
     console.log("Connecting to database");
-    const rows = await conn.query("SELECT * FROM gebruikers");
+    const user = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [username]);
     console.log("db connected");
-    console.log(rows);
+    console.log(user);
   } catch (err) {
     throw err;
   } finally {
@@ -95,8 +95,8 @@ router.get("/login", (req, res) => {
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
   test().then((result) => {
     console.log(result);
+    res.send("geladen");
   });
-  res.send("geladen");
   console.log("xxxxxxxxxxxxxxxxxxxxxx");
 });
 
