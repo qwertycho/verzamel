@@ -23,7 +23,7 @@ async function Database(username) {
     console.log("Connecting to database");
     const user = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [username]);
     console.log("db connected");
-    console.log(user);
+    console.log("user: " + user);
   } catch (err) {
     throw err;
   } finally {
