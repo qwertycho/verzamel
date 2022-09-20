@@ -26,7 +26,7 @@ const navBalk = {
                     </a>
                 </li>
                 <li>
-                    <a href="#iets">
+                    <a href="/contact">
                         Contact
                     </a>
                 </li>

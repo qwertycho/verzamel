@@ -1,0 +1,30 @@
+.contactTitle {
+    font-weight: 600;
+    text-align: center;
+    background-color: #fbf5f3;
+    width: 60vw;
+    margin-left: 20vw;
+    border: 4px solid #000;
+    border-radius: 10px;
+}
+
+.contactContent {
+    text-align: center;  
+    background-color: #fbf5f3;
+    width: 80vw;
+    height: 50vh;
+    margin-left: 10vw;
+    border: 4px solid #000;
+    border-radius: 10px;;
+    margin-top: 5vh;
+    align-items: center;
+    justify-content: center;
+}
+
+p{
+    margin-top: 15vh;
+}
+
+a {
+    color: #000;
+}

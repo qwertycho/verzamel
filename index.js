@@ -22,6 +22,10 @@ app.set('view engine', 'ejs')
 // zorgt ervoor dat de public folder beschikbaar is voor de client
 app.use(express.static(__dirname + '/public'));
 
+app.get("/contact", (req, res) => {
+    res.render("contact", {navBalk: navBalk.navigatieBalk});
+});
+
 // stelt de endpoint / als route in
 // res.render renderd de template index.ejs en stuurt deze als html naar de client
 // het object word meegenomen in het ejs bestand om de pagina te vullen
