@@ -80,6 +80,9 @@ router.get("/", (req, res) => {
             };
             res.render("../views/dashboard", { user: user });
         }
+    } else {
+        console.log("not logged in");
+        res.render("../views/login", {});
     }
 });
 
