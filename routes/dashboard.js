@@ -20,7 +20,6 @@ async function Database(username) {
   try {
     conn = await pool.getConnection();
     const rows = await conn.query("SELECT * FROM gebruikers");
-    return rows;
   } catch (err) {
     throw err;
   } finally {
