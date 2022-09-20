@@ -8,31 +8,31 @@ const mariadb = require("mariadb");
 // einde benodigde troep importeren
 router.use(cookieParser());
 
-const pool = mariadb.createPool({
+mariadb.createConnection({
   host: process.env.DB_HOST,
-  user: "tychi",
+  user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   connectionLimit: 5,
-});
+})
+  .then((conn) => {
+    console.log("Connected to database");
+    conn.query("SELECT * FROM gebruikers")
+      .then((rows) => {
+        console.log(rows);
+        conn.end();
+      })
+      .catch((err) => {
+        console.log(err);
+        conn.end();
+      });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-async function Database(username) {
-  console.log("Database function called");
-  let conn;
-  try {
-    conn = await pool.getConnection();
-    console.log("Connecting to database");
-    const user = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [username]);
-    res.send("hallo")
-    console.log("db connected");
-    console.log("user: " + user);
-  } catch (err) {
-    throw err;
-  } finally {
-    console.log("db disconnected");
-    if (conn) return conn.end();
-  }
-}
+
+
 
 // dit is de route voor login
 // doordat dit bestand pas word aangesproken als de gebruiker naar /dashboard gaat is /login dus /dashboard/login
@@ -90,9 +90,8 @@ router.post("/login", (req, res) => {
 // });
 
 router.get("/login", (req, res) => {
-  console.log("xxxxxxxxxxxxxxxxxxxxxx");
-  Database("qwertycho")
-  console.log("xxxxxxxxxxxxxxxxxxxxxx");
+
+  res.send("hallo");
 });
 
 // route naar de dashboard. Ofte wel /dasboard/
