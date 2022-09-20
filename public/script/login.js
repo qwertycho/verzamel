@@ -22,31 +22,5 @@ const sendData = async (event) => {
     }
 }
 
-//  new xml request
-// function sendData(event){
-//     event.preventDefault();
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("POST", "/dashboard/login", true);
-//     xhr.setRequestHeader('Content-Type', 'application/json');
-//     xhr.send(JSON.stringify({ username: username, password: password }));
-//     xhr.onload = function () {
-//         console.log(xhr.responseText);
-//         if (xhr.responseText == "wrong credentials") {
-//             alert("wrong credentials");
-//         } else {
-//             document.location.replace('/dashboard');
-//         }
-//     }
-//     xhr.onerror = function () {
-//         console.log("error");
-//     }
-//     xhr.onabort = function () {
-//         console.log("abort");
-//     }
-//     xhr.ontimeout = function () {
-//         console.log("timeout");
-//     }
-// }
-
  button.addEventListener('click', sendData);
 

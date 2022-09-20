@@ -9,7 +9,6 @@ const { response } = require("express");
 // einde benodigde troep importeren
 router.use(cookieParser());
 
-// 
 const pool = mariadb.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -99,7 +98,7 @@ router.get("/login", (req, res) => {
 // als de gebruiker geen cookie heeft word hij door gestuurd naar de login pagina
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
-  console.log(`/ req.cookies zijn: ${req.cookies.username}`);
+  console.log(`/ req.cookies zijn: ${req.cookies}`);
   if (req.cookies.username != undefined) {
     checkUser(req.cookies.username, req.cookies.auth).then( (authorised) => {
     if (authorised) {
