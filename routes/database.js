@@ -1,5 +1,5 @@
 // de hooft route naar de root van de server
-app.get('/database', (req, res) => {
+router.get('/database', (req, res) => {
     const { resolveInclude } = require('ejs');
     const express = require('express');
     const router = express.Router();
@@ -44,5 +44,7 @@ app.get('/database', (req, res) => {
     main();
     
     })
+
+
 
     module.exports = router;
