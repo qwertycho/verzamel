@@ -28,16 +28,21 @@ async function checkUser(userName, password) {
         // check of de gebruiker bestaat
         const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
         console.log("conn.query");
-        console.log(row);
+        console.log(row.gebruikerID);
+        console.log(row.username);
+        console.log(row.password);
+        console.log(row.isAdmin);
       } catch (err) {
         console.log("db error");
         console.log(err);
       throw err;
       } finally {
       if (conn) return conn.end();
-        if(row[0].password == password){
+        if(row.password == password){
+          console.log("passwords match");
           return true;
         } else {
+          console.log("passwords don't match");
           return false;
         }
       }
