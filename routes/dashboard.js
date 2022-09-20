@@ -8,6 +8,31 @@ const mariadb = require("mariadb");
 // einde benodigde troep importeren
 router.use(cookieParser());
 
+
+// db shit
+const pool = mariadb.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    connectionLimit: 5
+});
+async function connect(username) {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query(`SELECT * FROM gebruikers WHERE username = ${username}`);
+        console.log("xxxxxxxxxxxxxxxxxxxxxx");
+        console.log(rows); 
+        console.log("xxxxxxxxxxxxxxxxxxxxxx");
+        return rows;
+
+    } catch (err) {
+        throw err;
+        } finally {
+        if (conn) return conn.end();
+    }
+}
+
 // dit is de route voor login
 // doordat dit bestand pas word aangesproken als de gebruiker naar /dashboard gaat is /login dus /dashboard/login
 // Dit is een post route en geen get route. Hier word info dus op geplaats. In dit geval de login data
@@ -92,29 +117,7 @@ router.get("/", (req, res) => {
     }
 });
 
-// db shit
-    const pool = mariadb.createPool({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        connectionLimit: 5
-    });
-    async function connect(username) {
-        let conn;
-        try {
-            conn = await pool.getConnection();
-            const rows = await conn.query(`SELECT * FROM gebruikers WHERE username = ${username}`);
-            console.log("xxxxxxxxxxxxxxxxxxxxxx");
-            console.log(rows); 
-            console.log("xxxxxxxxxxxxxxxxxxxxxx");
-            return rows;
 
-        } catch (err) {
-            throw err;
-            } finally {
-            if (conn) return conn.end();
-        }
-    }
 
     // async function login(username) {
     //    return new Promise((resolve, reject) => {
