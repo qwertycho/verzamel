@@ -38,6 +38,8 @@ async function checkUser(userName, password) {
       if (conn) return conn.end();
         if(row[0].password == password){
           return true;
+        } else {
+          return false;
         }
       }
 }
@@ -61,6 +63,7 @@ router.post("/login", (req, res) => {
           console.log("wrong credentials");
           console.log(req.body.username);
           console.log(req.body.password);
+          res.send("wrong credentials");
         }
     });
   } else {
