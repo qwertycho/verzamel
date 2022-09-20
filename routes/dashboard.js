@@ -20,7 +20,7 @@ async function checkUser(userName) {
       let conn;
       try {
       conn = await pool.getConnection();
-      const res = await conn.query("SELECT * FROM gebruikers");
+      const res = await conn.query("SELECT * FROM gebruikers WHERE gebruikersnaam = ?", [userName]);
       console.log(res);
     
       } catch (err) {
@@ -101,7 +101,7 @@ router.post("/login", (req, res) => {
 
 router.get("/login", (req, res) => {
 
-  checkUser().then(res.send("hallo "));
+  checkUser("qwertycho").then(res.send("hallo "));
 
 });
 
