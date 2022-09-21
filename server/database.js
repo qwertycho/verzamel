@@ -9,3 +9,5 @@ const database = {
         connectionLimit: 5
       })
 }
+
+module.exports = database;
