@@ -72,7 +72,7 @@ router.post("/login", (req, res) => {
     });
   } else {
     console.log("no credentials");
-      res.redirect("/dashboard/login");
+      res.send("wrong password");
     }
 });
 
@@ -100,17 +100,11 @@ router.get("/login", (req, res) => {
 // als de gebruiker geen cookie heeft word hij door gestuurd naar de login pagina
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
-  console.log(`/ req.cookies zijn:`);
-  console.log(req.cookies.user);
-  console.log(req.cookies.auth);
-  let user = req.cookies.user;
   if (req.cookies.user != undefined) {
     checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
       if (authorised) {
       console.log("logged in");
-      console.log(req.cookies.user);
-      console.log(user);
-      res.render("../views/dashboard", { user: user });
+      res.render("../views/dashboard", { user: req.cookies.user });
     }
   });
   } else {
