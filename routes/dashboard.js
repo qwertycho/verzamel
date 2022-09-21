@@ -23,34 +23,34 @@ router.use(cookieParser());
 // functie om de database te connecten
 // gebruikt const pool = mariadb.createPool
 // haat 
-async function checkUser(userName, password) {
-        let conn;
-        try {
-        // connectie maken met de database
-        conn = await database.pool.getConnection();
-        const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
-        // als de gebruiker niet bestaat in de database is de row leeg
-        if (row.length == 0) {
-          console.log("gebruiker bestaat niet");
-          return false;
-        } else {
-          if(row[0].password == password){
-            console.log("passwords match");
-            conn.end()
-            return true;
-          } else {
-            console.log("passwords don't match");
-            conn.end()
-           return false;
-          }
-        }
-      } catch (err) {
-        // als er een error is, log deze dan
-        console.log("db error");
-        console.log(err);
-      throw err;
-      }
-}
+// async function checkUser(userName, password) {
+//         let conn;
+//         try {
+//         // connectie maken met de database
+//         conn = await database.pool.getConnection();
+//         const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
+//         // als de gebruiker niet bestaat in de database is de row leeg
+//         if (row.length == 0) {
+//           console.log("gebruiker bestaat niet");
+//           return false;
+//         } else {
+//           if(row[0].password == password){
+//             console.log("passwords match");
+//             conn.end()
+//             return true;
+//           } else {
+//             console.log("passwords don't match");
+//             conn.end()
+//            return false;
+//           }
+//         }
+//       } catch (err) {
+//         // als er een error is, log deze dan
+//         console.log("db error");
+//         console.log(err);
+//       throw err;
+//       }
+// }
 
 // dit is de route voor login
 // doordat dit bestand pas word aangesproken als de gebruiker naar /dashboard gaat is /login dus /dashboard/login
@@ -60,7 +60,7 @@ router.post("/login", (req, res) => {
   console.log("post login");
   try{
     if (req.body.username != undefined) {
-      checkUser(req.body.username, req.body.password).then(authorised => { 
+      database.checkUser(req.body.username, req.body.password).then(authorised => { 
         if (authorised) {
             // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
             // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
@@ -92,7 +92,7 @@ router.get("/login", (req, res) => {
   console.log("get login");
   try{
     if (req.cookies.username != undefined) {
-      checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
+      database.checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
         if (authorised) {
             // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
             // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
@@ -120,7 +120,7 @@ router.get("/", (req, res) => {
   console.log("get dashboard");
   try{
     if (req.cookies.user != undefined) {
-      checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
+      database.checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
         if (authorised) {
         console.log("logged in");
         res.render("../views/dashboard", { user: req.cookies.user });
