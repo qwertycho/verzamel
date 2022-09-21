@@ -5,7 +5,7 @@ const router = express.Router();
 const cookieParser = require("cookie-parser");
 const mariadb = require("mariadb");
 const { response } = require("express");
-const database = require("/server/database.ts");
+const database = require("/server/database.js");
 
 // einde benodigde troep importeren
 router.use(cookieParser());
