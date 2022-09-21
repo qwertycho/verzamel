@@ -27,6 +27,7 @@ async function checkUser(userName, password) {
         conn = await pool.getConnection();
         // check of de gebruiker bestaat
         const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
+        console.log(row);
         console.log("conn.query");
 
           if(row[0].password == password){
