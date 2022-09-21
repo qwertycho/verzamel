@@ -30,6 +30,7 @@ async function checkUser(userName, password) {
         console.log("conn.query");
 
         if (row.length == 0) {
+          console.log("gebruiker bestaat niet");
             return false;
         } else {
           if(row[0].password == password){
@@ -92,6 +93,7 @@ router.get("/login", (req, res) => {
           res.redirect("/dashboard");
         } else {
           console.log("wrong credentials");
+          res.send("wrong credentials");
         }
     });
   } else {
