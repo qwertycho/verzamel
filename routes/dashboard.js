@@ -5,52 +5,11 @@ const router = express.Router();
 const cookieParser = require("cookie-parser");
 const mariadb = require("mariadb");
 const { response } = require("express");
+// dit is de database met alle apies
 const database = require("../server/database.ts");
 
 // einde benodigde troep importeren
 router.use(cookieParser());
-
-// pool maken voor de database connectie
-// todo: verplaatsen naar een aparte file
-// const pool = mariadb.createPool({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-//   connectionLimit: 5
-// });
-
-// functie om de database te connecten
-// gebruikt const pool = mariadb.createPool
-// haat 
-// async function checkUser(userName, password) {
-//         let conn;
-//         try {
-//         // connectie maken met de database
-//         conn = await database.pool.getConnection();
-//         const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
-//         // als de gebruiker niet bestaat in de database is de row leeg
-//         if (row.length == 0) {
-//           console.log("gebruiker bestaat niet");
-//           return false;
-//         } else {
-//           if(row[0].password == password){
-//             console.log("passwords match");
-//             conn.end()
-//             return true;
-//           } else {
-//             console.log("passwords don't match");
-//             conn.end()
-//            return false;
-//           }
-//         }
-//       } catch (err) {
-//         // als er een error is, log deze dan
-//         console.log("db error");
-//         console.log(err);
-//       throw err;
-//       }
-// }
 
 // dit is de route voor login
 // doordat dit bestand pas word aangesproken als de gebruiker naar /dashboard gaat is /login dus /dashboard/login
