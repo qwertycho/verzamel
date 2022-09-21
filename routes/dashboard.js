@@ -26,8 +26,8 @@ async function checkUser(userName, password) {
         // connectie maken met de database
         conn = await pool.getConnection();
         // check of de gebruiker bestaat
-        const exists = await conn.query("SELECT EXISTS * FROM users WHERE username = ? AND password = ?", [userName, password]);
-        console.log(exists);
+        const exists = await conn.query("SELECT * FROM gebruikers WHERE EXISTS(SELECT * FROM gebruikers WHERE username = ?)", [userName, password]);
+        if(exists){
         const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
         console.log(row);
         console.log("conn.query");
@@ -41,6 +41,11 @@ async function checkUser(userName, password) {
             conn.end()
            return false;
           }
+        } else {
+          console.log("user doesn't exist");
+          conn.end()
+          return false;
+        }
 
       } catch (err) {
         console.log("db error");
