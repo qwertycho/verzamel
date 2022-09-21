@@ -103,11 +103,12 @@ router.get("/", (req, res) => {
   console.log(`/ req.cookies zijn:`);
   console.log(req.cookies.user);
   console.log(req.cookies.auth);
+  let user = req.cookies.user;
   if (req.cookies.user != undefined) {
     checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
       if (authorised) {
       console.log("logged in");
-      res.render("../views/dashboard", { user: req.cookies.user });
+      res.render("../views/dashboard", { user: user });
     }
   });
   } else {
