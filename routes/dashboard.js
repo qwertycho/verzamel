@@ -72,7 +72,7 @@ router.post("/login", (req, res) => {
           console.log("wrong credentials");
           console.log(req.body.username);
           console.log(req.body.password);
-          res.send("wrong credentials");
+          res.status(401).send("wrong credentials");
         }
     });
   } else {
