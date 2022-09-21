@@ -31,9 +31,11 @@ async function checkUser(userName, password) {
 
           if(row[0].password == password){
             console.log("passwords match");
+            conn.end()
             return true;
           } else {
             console.log("passwords don't match");
+            conn.end()
            return false;
           }
 
@@ -42,10 +44,6 @@ async function checkUser(userName, password) {
         console.log(err);
       throw err;
       }
-      //  finally {
-      //   console.log("finally");
-      // if (conn) return conn.end();
-      // }
 }
 
 // dit is de route voor login
