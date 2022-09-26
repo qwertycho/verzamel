@@ -8,6 +8,9 @@ const { response } = require("express");
 // dit is de database met alle apies
 const database = require("../server/database.ts");
 
+//peters troep
+const navBalk = require('../server/nav.js');
+
 // einde benodigde troep importeren
 router.use(cookieParser());
 
@@ -76,6 +79,7 @@ router.get("/login", (req, res) => {
 // als de gebruiker geen cookie heeft word hij door gestuurd naar de login pagina
 // als de gebruiker wel een cookie heeft word gecheckt of de cookie waarde overeenkomt met de waarde in het dotenv bestand
 router.get("/", (req, res) => {
+
   console.log("get dashboard");
   try{
     if (req.cookies.user != undefined) {
