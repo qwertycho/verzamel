@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <%- locals.navBalk %> 
 
-    <h1><% if (locals.user) { %><%=`welkom ${locals.user.username} `%><% } else{"Hoe ben jij hier?"} %></h1>
-    <h2>Dashboard</h2>
+    <h1><% if (locals.user) { %><%=`welkom ${locals.user} `%><% } else{"Hoe ben jij hier?"} %></h1>
+        <h2>Dashboard</h2>
 </body>
 </html>

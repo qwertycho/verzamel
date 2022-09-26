@@ -1,6 +1,7 @@
 const button = document.getElementById('login');
 const usernameField = document.getElementById('username');
 const passwordField = document.getElementById('password');
+console.log(document.cookie);
 
 const sendData = async (event) => {
     event.preventDefault();
@@ -19,6 +20,7 @@ const sendData = async (event) => {
     } else {
         alert(response.statusText);
     }
-    }
+}
 
-button.addEventListener('click', sendData);
+ button.addEventListener('click', sendData);
+
