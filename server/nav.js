@@ -17,11 +17,6 @@ const navBalk = {
             <ul>
                 <li>
                     <a href="#iets">
-                        Verzamel
-                    </a>
-                </li>
-                <li>
-                    <a href="#iets">
                         Dashboard
                     </a>
                 </li>
@@ -32,11 +27,6 @@ const navBalk = {
                 </li>
             </ul>
             <ul>
-                <li>
-                    <a href="#iets">
-                        Sign-up
-                    </a>
-                </li>
                 <li>
                     <a href="/dashboard">
                         Login
