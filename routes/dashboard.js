@@ -31,14 +31,12 @@ router.post("/login", (req, res) => {
             res.redirect("/dashboard");
           } else {
             // als de login data niet klopt word er een error gegeven
-            console.log("wrong credentials");
-            res.status(401).send("wrong credentials");
+            res.status(401).send("Verkeerde gebruikersnaam of wachtwoord");
           }
       });
     } else {
       // als er geen cookies zijn word de gebruiker door gestuurd naar de login pagina
-      console.log("no credentials");
-      res.status(401).send("no credentials");
+      res.status(401).send("niet alles ingevuld");
       }
   } catch (err) {
     // als er een error is, log deze dan
@@ -71,6 +69,40 @@ router.get("/login", (req, res) => {
     // als er een error is, log deze dan
     console.log("error");
     console.log(err);
+  }
+});
+
+
+// post route voor het aanmaken van een nieuwe gebruiker
+router.post("/newuser", (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  // check of de gegevens goed zijn ingevuld
+  if (username != undefined && password != undefined) {
+    if (username.length > 2 && password.length > 6) {
+      if (username.match(/^[a-zA-Z0-9]+$/)) {
+          try{
+            database.addUser(username, password).then((succes) => {
+              console.log(succes);
+              if (succes) {
+              console.log("user added");
+              res.status(200).redirect("/dashboard/login");
+              } else {
+                res.status(400).send("gebruiker bestaat al");
+              }
+            });
+          } catch (err) {
+            console.log("error adding user");
+            console.log(err);
+          }
+    } else {
+      res.status(400).send("gebruikersnaam mag alleen letters en cijfers bevatten");
+    }
+    } else {
+      res.send("username or password too short");
+    }
+  } else {
+    res.send("username or password undefined");
   }
 });
 
