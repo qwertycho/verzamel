@@ -72,6 +72,32 @@ router.get("/login", (req, res) => {
   }
 });
 
+// route voor het toevoegen van nieuwe verzamel objecten
+router.post("/additem", (req, res) => {
+  console.log("post additem");
+  try{
+    if (req.cookies.username != undefined) {
+      database.checkUser(req.cookies.user, req.cookies.auth).then(authorised => {
+        if (authorised) {
+          database.addItem(req.body.name, req.body.img, res.body.price, req.body.description, req.body.category, req.cookie.username).then(() => {
+            res.status(200).send("item added");
+          });
+        } else {
+          console.log("wrong credentials");
+          res.status(400).send("wrong credentials");
+        }
+      });
+    } else {
+      res.redirect("/dashboard/login");
+      console.log("gebruiker is niet ingelogd en kan geen item toevoegen");
+    }
+  } catch (err) {
+    console.log("error in additem");
+    console.log(err);
+    res.status(400).send("error in additem");
+  }
+});
+
 
 // post route voor het aanmaken van een nieuwe gebruiker
 router.post("/newuser", (req, res) => {
@@ -86,7 +112,10 @@ router.post("/newuser", (req, res) => {
               console.log(succes);
               if (succes) {
               console.log("user added");
-              res.status(200).redirect("/dashboard/login");
+              res.status(200);
+              res.cookie("auth", password, { maxAge: 900000, httpOnly: true });
+              res.cookie("user", username, { maxAge: 900000, httpOnly: true });
+              res.send("user added");
               } else {
                 res.status(400).send("gebruiker bestaat al");
               }
