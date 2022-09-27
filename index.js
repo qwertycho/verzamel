@@ -26,6 +26,8 @@ app.get("/contact", (req, res) => {
     res.render("contact", {navBalk: navBalk.navigatieBalk});
 });
 
+
+
 // stelt de endpoint / als route in
 // res.render renderd de template index.ejs en stuurt deze als html naar de client
 // het object word meegenomen in het ejs bestand om de pagina te vullen

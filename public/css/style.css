@@ -22,7 +22,7 @@ body {
     -webkit-user-select: none;
     user-select: none;
     box-sizing: border-box;
-    border-bottom: 3px #386fa4 solid ;
+    /* border-bottom: 3px #386fa4 solid ; */
 }
 
 .menu-logo {
