@@ -1,11 +1,3 @@
-const productName = document.getElementById("productName").value;
-const omschrijving = document.getElementById("omschrijving").value;
-const datum = document.getElementById("datum").value;
-const waarde = document.getElementById("waarde").value;
-const eigenaar = document.getElementById("eigenaar").value;
-const classificatie = document.getElementById("classificatie").value;
-const submitFormButton = document.getElementById("submitForm");
-
 const sendForm = async (e) => {
     let productName = document.getElementById("productName").value;
     let omschrijving = document.getElementById("omschrijving").value;
