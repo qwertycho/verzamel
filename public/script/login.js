@@ -7,7 +7,7 @@ const newUserButton = document.getElementById('signup');
 const sendData = async (event) => {
     console.log('send data');
     console.log(event);
-    event.preventDefault();
+    event.preventDefault();req.body.username
     const username = usernameField.value;
     const password = passwordField.value;
     
@@ -36,7 +36,8 @@ loginButton.addEventListener('click', sendData);
     xhr.send(JSON.stringify({ username, password }));
     xhr.onload = function () {
         if (xhr.status == 200) {
-            // hallo
+            console.log('succes');
+            document.location.replace('/dashboard');
         } else {
             alert(xhr.responseText);
         }
