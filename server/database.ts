@@ -35,7 +35,35 @@ const database = {
         console.log(err);
       throw err;
       }
-}
+},
+    addUser: async function(userName, password) {
+      console.log("add user");
+      
+        let conn;
+        try {
+        // connectie maken met de database
+        conn = await this.pool.getConnection();
+        const row = await conn.query("SELECT * FROM gebruikers WHERE username = ?", [userName]);
+        console.log(row);
+        
+        // als de gebruiker niet bestaat in de database is de row leeg
+        if (row.length == 0) {
+          console.log("gebruiker bestaat niet");
+          await conn.query("INSERT INTO gebruikers (username, password) VALUES (?, ?)", [userName, password]);
+          conn.end()
+          return true;
+        } else {
+          console.log("gebruiker bestaat al");
+          conn.end()
+          return false;
+        }
+      } catch (err) {
+        // als er een error is, log deze dan
+        console.log("db error");
+        console.log(err);
+        throw err;
+      }
+    }
 }
 
 module.exports = database;
