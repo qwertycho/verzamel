@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +8,46 @@
     <title>Dashboard</title>
     <!-- link CSS -->
     <link rel="stylesheet" href="/css/style.css">
+    <!-- link JavaScript -->
+    <script src="/script/dashboardform.js"></script>
 </head>
+
 <body>
 
-    <h1><% if (locals.user) { %><%=`welkom ${locals.user} `%><% } else{"Hoe ben jij hier?"} %></h1>
-        <h2>Dashboard</h2>
+    <%- locals.navBalk %> 
+
+    <h1>
+        <% if (locals.user) { %>
+            <%=`welkom ${locals.user} `%>
+                <% } else{"Hoe ben jij hier?"} %>
+    </h1>
+    <h2>Dashboard</h2>
+
+
+    <form id="dashboardForm">
+        <label for="productname">Verzamelobject naam:</label><br>
+        <input type="text" id="productname" name="productname"><br>
+
+        <label for="omschrijving">Verzamelobject omschrijving:</label><br>
+        <textarea type="text" id="omschrijving" name="omschrijving"></textarea>
+
+        <label for="datum" class="datum">Datum van toevoeging:</label><br>
+        <input type="date" id="datum" name="datum"><br>
+
+        <label for="waarde">Verzamelobject waarde:</label><br>
+        <input type="number" id="waarde" name="waarde"><br>
+
+        <label for="eigenaar">Eigenaar:</label><br>
+        <input type="text" id="eigenaar" name="eigenaar"><br>
+
+        <label for="classificatie">Classificatie:</label><br>
+        <input type="text" id="classificatie" name="classificatie"><br>
+
+        <button type="submit" id="submitForm">Verzamelobject toevoegen</button>
+    </form>
+
+
+
 </body>
+
 </html>

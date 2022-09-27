@@ -135,6 +135,42 @@ router.post("/newuser", (req, res) => {
   }
 });
 
+
+// dashboardForm
+router.post("/dashBoardForm", (req, res) => {
+  let productName = req.body.productName;
+  let omschrijving = req.body.omschrijving;
+  let datum = req.body.datum;
+  let waarde = req.body.waarde;
+  let eigenaar = req.body.eigenaar;
+  let classificatie = req.body.classificatie;
+  // check of de gegevens goed zijn ingevuld
+  if (productName != undefined && omschrijving != undefined && datum != undefined && waarde != undefined && eigenaar != undefined && classificatie != undefined) {
+    if (productName.length > 2 && omschrijving.length > 2 && datum.length > 2 && waarde.length > 2 && eigenaar.length > 2 && classificatie.length > 2) {
+      if (productName.match(/^[a-zA-Z0-9]+$/)) {
+          try{
+            database.addItem(productName, omschrijving, datum, waarde, eigenaar, classificatie).then((succes) => {
+              console.log(succes);
+              if (succes) {
+              console.log("product added");
+              res.status(200).redirect("/dashboard");
+              } else {
+                res.status(400).send("fout bij het toevoegen van het product");
+              }
+            });
+          } catch (err) {
+            console.log("error adding product");
+            console.log(err);
+          }
+    } else {
+      res.status(400).send("productnaam mag alleen letters en cijfers bevatten");
+    }
+    } else {
+      res.status(400).send("data too short");
+    }
+  }
+});
+
 // route naar de dashboard. Ofte wel /dasboard/
 // eerst word gecheckt of de gebruiker een cookie heeft met de naam "auth"
 // als de gebruiker geen cookie heeft word hij door gestuurd naar de login pagina
@@ -147,7 +183,7 @@ router.get("/", (req, res) => {
       database.checkUser(req.cookies.user, req.cookies.auth).then(authorised => { 
         if (authorised) {
         console.log("logged in");
-        res.render("../views/dashboard", { user: req.cookies.user });
+        res.render("../views/dashboard", { user: req.cookies.user, navBalk: navBalk.navigatieBalk });
       }
     });
     } else {
@@ -162,3 +198,4 @@ router.get("/", (req, res) => {
 });
 
 module.exports = router;
+
