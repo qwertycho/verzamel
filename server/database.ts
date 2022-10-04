@@ -158,6 +158,28 @@ sani: function(str) {
   return safe
  },
 
+ unescape: function(str) {
+  let safe = str.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+  safe = safe.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+  safe = safe.replace(/&amp;/g, "&");
+  safe = safe.replace(/&#96;/g, "`");
+  safe = safe.replace(/&#40;/g, "(").replace(/&#41;/g, ")");
+  safe = safe.replace(/&#123;/g, "{").replace(/&#125;/g, "}");
+  safe = safe.replace(/&#91;/g, "[").replace(/&#93;/g, "]");
+  safe = safe.replace(/&#47;/g, "/").replace(/&#92;/g, "\\");
+  safe = safe.replace(/&#61;/g, "=").replace(/&#59;/g, ";");
+  safe = safe.replace(/&#58;/g, ":").replace(/&#44;/g, ",");
+  safe = safe.replace(/&#63;/g, "?").replace(/&#33;/g, "!");
+  safe = safe.replace(/&#124;/g, "|").replace(/&#64;/g, "@");
+  safe = safe.replace(/&#35;/g, "#").replace(/&#36;/g, "$");
+  safe = safe.replace(/&#37;/g, "%").replace(/&#94;/g, "^");
+  safe = safe.replace(/&#38;/g, "&").replace(/&#42;/g, "*");
+  safe = safe.replace(/&#43;/g, "+").replace(/&#45;/g, "-");
+  safe = safe.replace(/&#46;/g, ".").replace(/&#126;/g, "~");
+  safe = safe.trim();
+  return safe
+  },
+
     getItems: async function() {
       let conn;
       try {
