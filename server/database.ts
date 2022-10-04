@@ -1,4 +1,4 @@
-const mariadb = require("mariadb");
+const mariadb = require('mariadb');
 
 const database = {
     pool: mariadb.createPool({
@@ -93,6 +93,48 @@ const database = {
       throw err;
     }
  },
+
+ getObjects: async function(id) {
+  try{
+
+    if(id != undefined){
+      let conn;
+      conn = await this.pool.getConnection();
+      const row = await conn.query("SELECT * FROM verza WHERE id = ?", [id]);
+      console.log(row);
+      conn.end()
+      return row;
+    } else {
+      let conn;
+      conn = await this.pool.getConnection();
+      const row = await conn.query("SELECT * FROM verza");
+      console.log(row);
+      conn.end()
+      return row;
+    }
+  } catch (err) {
+    // als er een error is, log deze dan
+    console.log("db error");
+    console.log(err);
+    throw err;
+  }
+
+ },
+
+ addObjects: async function(id, naam, tekst, thumbnail, datum, prijs, eigenaar, klasse) {
+  try{
+    let conn;
+    conn = await this.pool.getConnection();
+    const row = await conn.query("INSERT INTO verza (id, naam , tekst , thumbnail , datum, prijs , eigenaar , class) VALUES (? , ? , ? , ? , ? , ? , ? , ?)", [id, naam, tekst, thumbnail, datum, prijs, eigenaar, klasse]);
+    console.log(row);
+    conn.end()
+  } catch (err) {
+    // als er een error is, log deze dan
+    console.log("db error");
+    console.log(err);
+    throw err;
+  }
+},
 
 sani: function(str) {
   let safe = str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
