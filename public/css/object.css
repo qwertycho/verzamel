@@ -1,0 +1,28 @@
+main{
+    width: 100%;
+}
+
+.objectTitel{
+    text-align: center;
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+}
+
+.objectImg{
+    width:50%;
+    margin-left: 25%;
+}
+
+.tekst{
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+}
+
+.prijs{
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+}
