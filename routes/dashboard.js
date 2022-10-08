@@ -1,15 +1,12 @@
 // benodigde troep importeren
 const { resolveInclude, promiseImpl } = require("ejs");
-const express = require("express");
+const express = require('express')
 const router = express.Router();
 const cookieParser = require("cookie-parser");
-const mariadb = require("mariadb");
 const { response } = require("express");
 // dit is de database met alle apies
-const database = require("../server/database.ts");
-
+const database = require("../server/database.ts")
 //peters troep
-const navBalk = require('../server/nav.js');
 
 // einde benodigde troep importeren
 router.use(cookieParser());

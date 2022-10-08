@@ -7,7 +7,7 @@ const newUserButton = document.getElementById('signup');
 const sendData = async (event) => {
     console.log('send data');
     console.log(event);
-    event.preventDefault();req.body.username
+    event.preventDefault();
     const username = usernameField.value;
     const password = passwordField.value;
     
