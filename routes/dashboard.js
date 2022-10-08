@@ -7,6 +7,7 @@ const { response } = require("express");
 // dit is de database met alle apies
 const database = require("../server/database.ts")
 //peters troep
+const navBalk = require('../server/nav.js');
 
 // einde benodigde troep importeren
 router.use(cookieParser());
@@ -60,7 +61,7 @@ router.get("/login", (req, res) => {
           }
       });
     } else {
-        res.render("../views/login", {});
+        res.render("../views/login", {navBalk: navBalk.navigatieBalk});
       }
   } catch (err) {
     // als er een error is, log deze dan
@@ -185,7 +186,7 @@ router.get("/", (req, res) => {
     });
     } else {
       console.log("not logged in");
-      res.render("../views/login", {});
+      res.render("../views/login", {navBalk: navBalk.navigatieBalk });
     }
 } catch (err) {
   // als er een error is, log deze dan
