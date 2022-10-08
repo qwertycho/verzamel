@@ -136,6 +136,33 @@ const database = {
   }
 },
 
+getCollection: async function(id) {
+  try{
+    if (id != undefined){
+      console.log("id is: " + id);
+      
+      let conn;
+      conn = await this.pool.getConnection();
+      const row = await conn.query("SELECT * FROM verza WHERE objectID = ?", [id]);
+      conn.end()
+      return row;
+    } else {
+      console.log("geen id meegegeven");
+      
+      let conn;
+      conn = await this.pool.getConnection();
+      const row = await conn.query("SELECT * FROM verza");
+      conn.end()
+      return row;
+    }
+  } catch (err) {
+    // als er een error is, log deze dan
+    console.log("db error");
+    console.log(err);
+    throw err;
+  }
+},
+
 sani: function(str) {
   let safe = str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   safe = safe.replace(/'/g, "&#39;").replace(/"/g, "&quot;");

@@ -1,0 +1,34 @@
+main{
+    width: 100%;
+
+}
+
+.verzameling{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 25px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+a{
+    color: black;
+    background-color: #386fa4;
+    border-radius: 20px;
+    padding: 5px;
+    box-shadow: 5px 5px 20px black;
+}
+
+a img{
+    border-radius: 5px;
+}
+
+.object{
+    text-align: center;
+}
+
+.object img{
+    border-radius: 10px;
+    max-width: 85%;
+}
+
