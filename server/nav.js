@@ -16,7 +16,7 @@ const navBalk = {
         <div class="menu">
             <ul>
                 <li>
-                    <a href="#iets">
+                    <a href="/dashboard">
                         Dashboard
                     </a>
                 </li>
