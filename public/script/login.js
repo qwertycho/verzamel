@@ -45,3 +45,13 @@ loginButton.addEventListener('click', sendData);
 }
 
     newUserButton.addEventListener('click', signUp);
+
+let switchButton = document.getElementById('switch');
+
+switchButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    let loginForm = document.getElementById('loginForm');
+    let newUserForm = document.getElementById('signUp');
+    loginForm.classList.toggle('hidden');
+    newUserForm.classList.toggle('hidden');
+});

@@ -11,12 +11,12 @@ main{
     margin: 0 auto;
 }
 
-a{
+main a{
     color: black;
-    background-color: #386fa4;
-    border-radius: 20px;
-    padding: 5px;
-    box-shadow: 5px 5px 20px black;
+    text-align: center;
+    background-color: #fbf5f3;
+    border: 3px solid #000;
+    border-radius: 10px;
 }
 
 a img{
