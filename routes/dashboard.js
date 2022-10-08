@@ -1,13 +1,11 @@
 // benodigde troep importeren
 const { resolveInclude, promiseImpl } = require("ejs");
-const express = require("express");
+const express = require('express')
 const router = express.Router();
 const cookieParser = require("cookie-parser");
-const mariadb = require("mariadb");
 const { response } = require("express");
 // dit is de database met alle apies
-const database = require("../server/database.ts");
-
+const database = require("../server/database.ts")
 //peters troep
 const navBalk = require('../server/nav.js');
 
@@ -63,12 +61,38 @@ router.get("/login", (req, res) => {
           }
       });
     } else {
-        res.render("../views/login", {});
+        res.render("../views/login", {navBalk: navBalk.navigatieBalk});
       }
   } catch (err) {
     // als er een error is, log deze dan
     console.log("error");
     console.log(err);
+  }
+});
+
+// route voor het toevoegen van nieuwe verzamel objecten
+router.post("/additem", (req, res) => {
+  console.log("post additem");
+  try{
+    if (req.cookies.username != undefined) {
+      database.checkUser(req.cookies.user, req.cookies.auth).then(authorised => {
+        if (authorised) {
+          database.addItem(req.body.name, req.body.img, res.body.price, req.body.description, req.body.category, req.cookie.username).then(() => {
+            res.status(200).send("item added");
+          });
+        } else {
+          console.log("wrong credentials");
+          res.status(400).send("wrong credentials");
+        }
+      });
+    } else {
+      res.redirect("/dashboard/login");
+      console.log("gebruiker is niet ingelogd en kan geen item toevoegen");
+    }
+  } catch (err) {
+    console.log("error in additem");
+    console.log(err);
+    res.status(400).send("error in additem");
   }
 });
 
@@ -86,7 +110,10 @@ router.post("/newuser", (req, res) => {
               console.log(succes);
               if (succes) {
               console.log("user added");
-              res.status(200).redirect("/dashboard/login");
+              res.status(200);
+              res.cookie("auth", password, { maxAge: 900000, httpOnly: true });
+              res.cookie("user", username, { maxAge: 900000, httpOnly: true });
+              res.send("user added");
               } else {
                 res.status(400).send("gebruiker bestaat al");
               }
@@ -163,7 +190,7 @@ router.get("/", (req, res) => {
     });
     } else {
       console.log("not logged in");
-      res.render("../views/login", {});
+      res.render("../views/login", {navBalk: navBalk.navigatieBalk });
     }
 } catch (err) {
   // als er een error is, log deze dan

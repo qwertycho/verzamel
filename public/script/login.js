@@ -36,7 +36,8 @@ loginButton.addEventListener('click', sendData);
     xhr.send(JSON.stringify({ username, password }));
     xhr.onload = function () {
         if (xhr.status == 200) {
-            // hallo
+            console.log('succes');
+            document.location.replace('/dashboard');
         } else {
             alert(xhr.responseText);
         }
@@ -44,3 +45,13 @@ loginButton.addEventListener('click', sendData);
 }
 
     newUserButton.addEventListener('click', signUp);
+
+let switchButton = document.getElementById('switch');
+
+switchButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    let loginForm = document.getElementById('loginForm');
+    let newUserForm = document.getElementById('signUp');
+    loginForm.classList.toggle('hidden');
+    newUserForm.classList.toggle('hidden');
+});

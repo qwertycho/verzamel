@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const navBalk = require('./server/nav.js');
+const database = require("./server/database.ts")
 
 // je kan een .env bestand aanmaken om je wachtwoorden te verbergen
 // daar moet je ook PORT=3000 doen om de server te starten
@@ -26,7 +27,29 @@ app.get("/contact", (req, res) => {
     res.render("contact", {navBalk: navBalk.navigatieBalk});
 });
 
+app.get("/object/:id", (req, res) => {
+    let id = req.params.id;
+    // console.log(id);
+    async function dibbertje(id){
+        console.log(id);
+        let data = await database.getCollection(id);
+        let object = data[0];
+        console.log(object);
+        if(object){
+            res.render("object", {navBalk: navBalk.navigatieBalk, titel: object.naam, tekst: object.tekst, afbeelding: object.thumbnail, prijs: object.prijs});
+        } else{
+            res.render("object", {navBalk: navBalk.navigatieBalk, titel: null, tekst:null, afbeelding: null, prijs: null});
+        }
+    } dibbertje(id);
+});
 
+
+app.get("/verzameling", (req, res) => {
+    console.log("verzameling");
+     database.getCollection().then((data) => {
+        res.send(data);
+     });
+});
 
 // stelt de endpoint / als route in
 // res.render renderd de template index.ejs en stuurt deze als html naar de client

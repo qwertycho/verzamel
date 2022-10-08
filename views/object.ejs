@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- link CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/object.css">
+</head>
+
+<body>
+
+    <%- navBalk %>
+
+    <main>
+        <h1 class="objectTitel">
+            <%- titel || "Verkeerd object ID" %>
+        </h1>
+        <img src="/media/objecten/<%- afbeelding %>" width="300px" alt="pen" class="objectImg">
+
+        <p class="tekst">
+            <%- tekst || "Dit object bestaat (niet) meer!" %>
+        </p>
+        <p class="prijs">
+            <%- (prijs/100).toFixed(0) || "0" %> euro
+        </p>
+
+        
+    </main>
+
+</body>
+
+</html>
