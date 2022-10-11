@@ -20,7 +20,7 @@ function showItems(data) {
     });
 }
 
-
+// comment
 const getVerzameling = async() => {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', '/verzameling', true);
