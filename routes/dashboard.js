@@ -24,8 +24,8 @@ router.post("/login", (req, res) => {
         if (authorised) {
             // als de login data klopt word de gebruiker door gestuurd naar de dashboard pagina
             // de gebruiker word ook een cookie gegeven met de naam "login" en de waarde van het juiste wachtwoord
-            res.cookie("auth", req.body.password, { maxAge: 900000, httpOnly: true });
-            res.cookie("user", req.body.username, { maxAge: 900000, httpOnly: true });
+            res.cookie("auth", req.body.password, { maxAge: 900000, httpOnly: false, sameSite: "lax" });
+            res.cookie("user", req.body.username, { maxAge: 900000, httpOnly: false, sameSite: "lax" });
             res.redirect("/dashboard");
           } else {
             // als de login data niet klopt word er een error gegeven
