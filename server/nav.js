@@ -28,7 +28,7 @@ const navBalk = {
             </ul>
             <ul>
                 <li>
-                    <a href="/dashboard">
+                    <a href="/dashboard" class="dashboardLink">
                         Login
                     </a>
                 </li>
