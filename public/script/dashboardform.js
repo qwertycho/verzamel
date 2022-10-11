@@ -1,4 +1,5 @@
 const sendForm = async (e) => {
+    e.preventDefault();
     let productName = document.getElementById("productName").value;
     let omschrijving = document.getElementById("omschrijving").value;
     let datum = document.getElementById("datum").value;
@@ -6,7 +7,6 @@ const sendForm = async (e) => {
     let eigenaar = document.getElementById("eigenaar").value;
     let classificatie = document.getElementById("classificatie").value;
 
-    e.preventDefault();
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/dashboard/dashBoardForm', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -20,4 +20,4 @@ const sendForm = async (e) => {
     }
 }
 
-submitFormButton.addEventListener('click', sendForm);
+document.getElementById("submitForm").addEventListener("click", sendForm);

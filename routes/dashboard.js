@@ -136,6 +136,7 @@ router.post("/newuser", (req, res) => {
 
 // dashboardForm
 router.post("/dashBoardForm", (req, res) => {
+  console.log(req.body);
   let productName = req.body.productName;
   let omschrijving = req.body.omschrijving;
   let datum = req.body.datum;
@@ -161,11 +162,14 @@ router.post("/dashBoardForm", (req, res) => {
             console.log(err);
           }
     } else {
-      res.status(400).send("productnaam mag alleen letters en cijfers bevatten");
+      res.status(400).send("productinformatie mag alleen letters en cijfers bevatten");
     }
     } else {
       res.status(400).send("data too short");
     }
+  }else {
+    res.status(400).send("data undefined");
+    console.log("data undefined");
   }
 });
 
