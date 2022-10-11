@@ -9,7 +9,7 @@ const navBalk = {
 
         <!-- logo -->
         <a href="/" class="menu-logo">
-            <img src="/media/pf 3.jpg"/>
+            <img src="/media/logo.png"/>
         </a>
 
         <!-- menu items -->
