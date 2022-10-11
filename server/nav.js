@@ -9,7 +9,7 @@ const navBalk = {
 
         <!-- logo -->
         <a href="/" class="menu-logo">
-            <img src="/media/logo.png"/>
+            <img src="/media/logoNib.jpg"/>
         </a>
 
         <!-- menu items -->
