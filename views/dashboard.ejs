@@ -10,10 +10,8 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- link JavaScript -->
     <script src="/script/dashboardform.js" defer></script>
-</head>
     <script src="/script/username.js" defer></script>
-
-
+</head>
 <body>
 
     <%- locals.navBalk %> 
@@ -28,7 +26,7 @@
 
     <form id="dashboardForm">
         <label for="productname">Verzamelobject naam:</label><br>
-        <input type="text" id="productname" name="productname"><br>
+        <input type="text" id="productName" name="productname"><br>
 
         <label for="omschrijving">Verzamelobject omschrijving:</label><br>
         <textarea type="text" id="omschrijving" name="omschrijving"></textarea><br>
@@ -40,10 +38,10 @@
         <input type="number" id="waarde" name="waarde"><br>
 
         <label for="eigenaar">Eigenaar:</label><br>
-        <input type="text" id="eigenaar" name="eigenaar"><br>
+        <input type="text" id="eigenaar" name="eigenaar"><br><br>
 
         <label for="classificatie">Classificatie:</label><br>
-        <input type="text" id="classificatie" name="classificatie"><br>
+        <select name="classificatie" id="classificatie"></select>
 
         <button type="submit" id="submitForm">Verzamelobject toevoegen</button>
     </form>

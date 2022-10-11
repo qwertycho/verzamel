@@ -121,11 +121,21 @@ const database = {
 
  },
 
- addObjects: async function(id, naam, tekst, thumbnail, datum, prijs, eigenaar, klasse) {
+ addObjects: async function( naam, tekst, thumbnail, datum, prijs, username, klasse) {
   try{
     let conn;
     conn = await this.pool.getConnection();
-    const row = await conn.query("INSERT INTO verza (id, naam , tekst , thumbnail , datum, prijs , eigenaar , class) VALUES (? , ? , ? , ? , ? , ? , ? , ?)", [id, naam, tekst, thumbnail, datum, prijs, eigenaar, klasse]);
+
+    const eigenaar = await conn.query("SELECT gebruikerID FROM gebruikers WHERE username = ?", [username]);
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxx");
+    
+    console.log(eigenaar);
+
+    console.log("xxxxxxxxxxxxxxxxxxxxxxxxx");
+    
+    
+
+    const row = await conn.query("INSERT INTO verza ( naam , tekst , thumbnail , datum, prijs , eigenaar , class) VALUES ( ? , ? , ? , ? , ? , ? , ?)", [ naam, tekst, thumbnail, datum, prijs, eigenaar, klasse]);
     console.log(row);
     conn.end()
   } catch (err) {
@@ -222,7 +232,25 @@ sani: function(str) {
       console.log(err);
       throw err;
     }
+   },
+
+    getClasses: async function() {
+      let conn;
+      try {
+      // connectie maken met de database
+      conn = await this.pool.getConnection();
+      const row = await conn.query("SELECT * FROM classes");
+      console.log(row);
+      conn.end()
+      return row;
+    } catch (err) {
+      // als er een error is, log deze dan
+      console.log("db error");
+      console.log(err);
+      throw err;
+    }
    }
+
 
 };
 

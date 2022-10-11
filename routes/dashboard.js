@@ -6,8 +6,9 @@ const cookieParser = require("cookie-parser");
 const { response } = require("express");
 // dit is de database met alle apies
 const database = require("../server/database.ts")
-//peters troep
+//nav troep
 const navBalk = require('../server/nav.js');
+const { get } = require("http");
 
 // einde benodigde troep importeren
 router.use(cookieParser());
@@ -198,6 +199,13 @@ router.get("/", (req, res) => {
   console.log(err);
 }
 });
+
+router.get("/classes", (req, res) => {
+  database.getClasses().then(classes => {
+    res.send(classes);
+  });
+});
+
 
 module.exports = router;
 
