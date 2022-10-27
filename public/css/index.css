@@ -1,6 +1,5 @@
 main{
     width: 100%;
-
 }
 
 .verzameling{
@@ -29,6 +28,18 @@ a img{
 
 .object img{
     border-radius: 10px;
-    max-width: 85%;
+    width: 75%;
 }
 
+@media screen and (max-width: 450px){
+    .verzameling{
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+    }
+
+    main a{
+        border: 2px solid #000;
+        border-radius: 7px;
+    }
+}
+    
